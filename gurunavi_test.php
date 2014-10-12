@@ -14,12 +14,14 @@ and open the template in the editor.
             require 'GuruNavi.php';
             require 'GuruNaviParser.php';
             
+            session_start();
+            
             $accessKey = "0c7aaf7272c9db0e0c7da255a8bafc30";
             $param = array(
                 "format" => "xml",
                 "input_coordinates_mode" => "1",
-                "latitude" => "35.681382",
-                "longitude" => "139.766084",
+                "latitude" => $_SESSION['lat'],
+                "longitude" => $_SESSION['long'],
                 "range" => "2",
                 "hit_per_page" => "100"
             );

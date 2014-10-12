@@ -5,7 +5,8 @@
 	<title>東京メトロ</title>
 </head>
 <body>
-	<form name="form" method="POST" action="receive.php">
+	<!--<form name="form" method="POST" action="receive.php">-->
+        <form name="form" method="POST" action="mediation.php">
 	<?php
 		$json = file_get_contents("./tokyo_metro_json/metro_stationDict.json");
 		$json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
