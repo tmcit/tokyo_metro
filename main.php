@@ -11,7 +11,7 @@
 		$json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
 		$data = json_decode($json,true);
 		foreach ($data as $key => $value) {
-			echo "<input type='radio' name='station' value=$value>", $value, '</br>;
+			echo "<input type='radio' name='station' value=$value>", $value, '</br>';
 		}
 		echo "<input type='submit' value='送信'>";
 	?>
