@@ -25,6 +25,14 @@
 			return;
 		}
 
+		public function get_places($prms, $ucode) {
+			$apiName = "places/";
+			$apiUrl = $this->baseUrl.$apiName.$ucode;
+
+			$decoded_json = self::get_decoded_json($apiUrl, $prms);
+			return $decoded_json;
+		}
+
 		private function get_decoded_json($apiUrl, $prms) {
 			$prms['acl:consumerKey'] = $this->token;
 			$prms = self::get_prms($prms);
