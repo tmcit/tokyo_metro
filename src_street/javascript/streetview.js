@@ -20,7 +20,13 @@ function Initialize() {
     svp = new google.maps.StreetViewPanorama(        
         document.getElementById("svp"), {
             position: map.getCenter(),
-            imageDateControl: false
+            imageDateControl: false,
+            panControl: false,
+            addressControl: false,
+            zoomControlOptions: {
+                style: google.maps.ZoomControlStyle.LARGE,
+                position: google.maps.ControlPosition.RIGHT_CENTER
+            }
         });
     // ストリートビューの設定
     svp.setPov(
