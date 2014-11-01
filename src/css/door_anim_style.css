@@ -1,0 +1,23 @@
+
+.box_container{
+    position:relative;
+    width:100%;
+    height:500px;
+    overflow:hidden;
+    
+}
+.images_holder{
+    position:absolute;
+}
+.image_div {
+    position:relative;
+    overflow:hidden;
+    width:50%;  //半分だけ見えるようにしています
+    float:left; //2つの左右に並べています
+}
+.right img{
+    margin-left: -100%; //左半分を見えなくしています
+}
+.clear{
+    clear:both;   
+}
