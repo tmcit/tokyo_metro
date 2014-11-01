@@ -30,15 +30,18 @@ ul#navigation li a {
     opacity: 1;
     filter:progid:DXImageTransform.Microsoft.Alpha(opacity=60);
 }
-ul#navigation .home a{
+ul#navigation .gurume a{
     background-image: url(./img/food.png);
 }
 ul#navigation .about a      {
-    background-image: url(../images/id_card.png);
+    background-image: url(./img/building.png);
 }
 ul#navigation .search a      {
     background-image: url(../images/search.png);
 }
-ul#navigation .podcasts a      {
-    background-image: url(../images/ipod.png);
+ul#navigation .map div {
+    display: block;
+    margin-left: -2px;  
+    width: 100px;
+    height: 300px;
 }

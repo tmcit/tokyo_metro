@@ -5,9 +5,12 @@
     <title></title>
     <!-- Google Maps APIの読み込み -->
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <!--jQuery-->
     <script type="text/javascript" src="../../libs/jquery/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="../javascript/streetview.js"></script>
-    
+    <!--jquery.cookie.js-->
+    <script type="text/javascript" src="../../libs/jquery-cookie/jquery.cookie.js"></script>
+
+    <script type="text/javascript" src="../javascript/streetview.js"></script>    
 
     <script type="text/javascript">
         
@@ -109,9 +112,11 @@
     </script>
 
     <script type="text/javascript">
-        function Test() {
-            //ボタンが押された時にライトボックス風にページを読み込みたい
+        function WriteCookie() {
+            $.cookie("lat", svp.getPosition().lat(), { path: '/' });
+            $.cookie("lng", svp.getPosition().lng(), { path: '/' });
         }
+
     </script>
 
     <!--Shadowbox.js-->
@@ -188,18 +193,6 @@
                 position: absolute;
             }
 
-            #infoarea {
-            right: 0px;
-            top: 0px;
-            margin: 20px;
-            width: 200px;
-            height: 350px;
-                z-index: 100;
-                position: absolute;
-
-                background: rgba(255, 255, 255, 0.70);
-            }
-
             .btn {
                 background: -moz-linear-gradient(top,#FFF 0%,#E6E6E6);
                 background: -webkit-gradient(linear, left top, left bottom, from(#FFF), to(#E6E6E6));
@@ -219,28 +212,15 @@
     </head>
     <body>
         <ul id="navigation">
-            <li class="home"><a href="http://r.gnavi.co.jp/k774000/" rel="shadowbox"></a></li>
+            <li class="gurume"><a href="linkage.html" title="付近のグルメを検索" rel="shadowbox" onclick="WriteCookie();"></a></li>
             <li class="about"><a href="" title="About"></a></li>
-            <li class="search"><a href="" title="Search"></a></li>
-            <li class="photos"><a href="" title="Photos"></a></li>
+            <li class="search"><a href="" rel="shadowbox" title="Search" ></a></li>
         </ul>
 
         <div id="wrapper">
             <div id="svp">
                 <div id="map"></div>
-                <!--
-                <div id="infoarea">
-                    <input id="rest" class="btn" type="button" value="近くのグルメを検索！" onclick="GetRestaurant();" />
-                    <input id="rest" class="btn" type="button" value="近くのグルメを検索！2" onclick="Test();" />
-                    <input id="around" class="btn" type="button" value="周辺情報" onclick="GetAroundPlace()" />
-                </div>
-                    -->
             </div>
-            <!--
-            <p>現在位置<span id="res"></span></p>
-            <div id="log"></div>
-            <a href="http://r.gnavi.co.jp/k774000/" rel="shadowbox">YAHOO!</a>
-                -->
         </div>
     </body>
 </html>

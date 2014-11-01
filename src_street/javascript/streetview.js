@@ -2,7 +2,7 @@ var map, svp;
 
 function Initialize() {
     // 緯度・経度変数
-    var latlng = new google.maps.LatLng(35.674144, 139.77675999999997);
+    var latlng = new google.maps.LatLng(35.698683, 139.774219);
 
     //地図の設定
     var mapOption = {
@@ -42,7 +42,7 @@ function Initialize() {
 }
 
 function review() {
-    //document.getElementById("res").innerHTML = svp.getPosition();
+    //表示座標が変わったときにしたい処理
 }
 
 //ページ読み込み時にInitialize()呼び出し
