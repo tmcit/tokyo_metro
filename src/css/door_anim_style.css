@@ -1,23 +1,36 @@
+#door_container {
+    width: 100%;
+    height: 100%;
+}
 
-.box_container{
-    position:relative;
-    width:100%;
-    height:500px;
+#images_container {
+    text-align: center;
+    position: absolute;
+    /*width: 482px;*/
+    left: 103px;
     overflow:hidden;
-    
 }
-.images_holder{
-    position:absolute;
+
+.door {
+    position: relative;
+    overflow: hidden;
+    width: auto;    
 }
-.image_div {
-    position:relative;
+
+.door_image {
+    height: 100%;
     overflow:hidden;
-    width:50%;  //半分だけ見えるようにしています
-    float:left; //2つの左右に並べています
 }
-.right img{
-    margin-left: -100%; //左半分を見えなくしています
+
+#door_left {
+    float: left;
 }
-.clear{
-    clear:both;   
+
+#door_right {
+    float: right;
+}
+
+#door_frame {
+    z-index: 200;
+    position: relative;
 }
