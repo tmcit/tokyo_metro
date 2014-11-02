@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <!-- Google Maps APIの読み込み -->
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <!--jQuery-->
+    <script type="text/javascript" src="../../libs/jquery/jquery-2.1.1.min.js"></script>
+    <!--jquery.cookie.js-->
+    <script type="text/javascript" src="../../libs/jquery-cookie/jquery.cookie.js"></script>
+
+    <!--Shadowbox.js-->
+    <link type="text/css" href="../../libs/shadowbox-3.0.3/shadowbox.css" rel="stylesheet" media="all" />
+    <script type="text/javascript" src="../../libs/shadowbox-3.0.3/shadowbox.js"></script>
+    <script type="text/javascript">
+        Shadowbox.init();
+    </script>
+
+    <!--BEAUTIFUL SLIDE OUT NAVIGATION-->
+    <link type="text/css" href="../css/navigation.css" rel="stylesheet" media="all" />
+    <script type="text/javascript">
+        $(function () {
+            $('#navigation a').stop().animate({ 'marginLeft': '-85px' }, 1000);
+
+            $('#navigation > li').hover(
+                function () {
+                    $('a', $(this)).stop().animate({ 'marginLeft': '-2px' }, 200);
+                },
+                function () {
+                    $('a', $(this)).stop().animate({ 'marginLeft': '-85px' }, 200);
+                }
+            );
+        });
+    </script>
+
+    <!--original-->
+    <link type="text/css" href="../css/index.css" rel="stylesheet" />
+    <script type="text/javascript" src="../javascript/streetview.js"></script>
+    <script type="text/javascript">
+        function WriteCookie() {
+            $.cookie("lat", svp.getPosition().lat(), { path: '/' });
+            $.cookie("lng", svp.getPosition().lng(), { path: '/' });
+        }
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#map').stop().animate({ 'marginLeft': '-390px' }, 1000);
+
+            $("#map").hover(
+                function () {
+                    $(this).stop().animate({ 'marginLeft': '5px' }, 200);
+                },
+                function () {
+                    $(this).stop().animate({ 'marginLeft': '-390px' }, 200);
+                });
+        });
+    </script>
+
+    </head>
+    <body>
+        <ul id="navigation">
+            <li class="gurume"><a href="linkage.html" title="付近のグルメを検索" rel="shadowbox" onclick="WriteCookie();"></a></li>
+            <li class="about"><a href="place.html" title="周辺施設を検索" rel="shadowbox" onclick="WriteCookie();"></a></li>
+            <li class="search"><a href="" rel="shadowbox" title="近くにある東京メトロの駅" onclick="WriteCookie();"></a></li>
+        </ul>
+
+        <div id="wrapper">
+            <div id="svp">
+                <div id="map"></div>
+            </div>
+        </div>
+    </body>
+</html>
