@@ -58,16 +58,11 @@
 			return $temp;
 		}
 
-		//緯度,軽度,半径を設定 
+		//緯度,軽度,半径をから、地物を検索
 		public function searchStation($lat, $lon, $radius) {
 			$prm= array('rdf:type'=>'odpt:Station', 'lat'=>$lat, 'lon'=>$lon, 'radius'=>$radius);
 			$array = self::get_places($prm);
-			// $arrays[] = array();
-			// foreach ($array as $key => $value) {
-				// $lat = $array->{'geo:lat'};
-				// $lon = $array->{'geo:lon'};
-				// $arrays[] = self::get_datapoints(array('rdf:type'=>'odpt:Station', '));
-			// }
+			
 			return $array;
 		}
 
