@@ -1,3 +1,5 @@
+
+
 var map, svp;
 
 function initialize() {
@@ -35,6 +37,24 @@ function initialize() {
   	google.maps.event.addListener(svp, 'position_changed', review);  	
 }
 
+function selectRailway() {
+	var select_html = "";
+
+	select_html += "<form>";
+	select_html += "<select id='railway' onChange='disRailway()'>";
+
+
+	$(function() {
+		$.getJSON("../json/tokyo_metro_json/metro_railwayDict.json", function(data) {
+			var
+				tag = $("#railway");
+				len = data.length;
+			for (var i = 0; i < len; i++){
+
+			} 
+		});
+	});
+}
 
 // ロード
 google.maps.event.addDomListener(window, 'load', initialize);

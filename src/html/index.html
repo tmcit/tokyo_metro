@@ -1,31 +1,45 @@
-<html lang="ja">
+<html>
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-	<title>東京メトロぶらり旅</title>
-	<!-- jquery読み込み -->
-	<script type="text/javascript" src="../../libs/jquery/jquery-2.1.1.min.js"></script>
-	
-</head>
-<body>
-	<!-- ajaxでページの一部を更新 -->
-	<script type="text/javascript">
-		$(function(){
-			$("#home").click(function(){
-				$("#content").load("./home.html");
-			});
-		});
-	</script>
-
-	<div id="content"></div>
-
-	<!-- サイドバーナビゲーション -->
-    <ul id="navigation">
-        <li class="home" id="home"><a href="#" title="Home"></a></li>
-        <li class="search"><a href="" title="Search"></a></li>
-        <li class="about"><a href="" title="About"></a></li>
-    </ul>
+    <meta charset="UTF-8">
+    <title>東京メトロぶらり旅</title>
+    <!-- css読み込み -->
+    <link rel="stylesheet" href="../css/style.css" type="text/css">
     <link rel="stylesheet" href="../css/sidebar_navigation_style.css" charset="utf-8"/>
+    <!-- google maps apiの読み込み -->
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true" charset="UTF-8"></script>
+    <!-- マップとビューを表示させるスクリプト -->
+    <script type="text/javascript" src="../javascript/initialize.js" charset="UTF-8"></script>
+        <!-- jquery読み込み -->
+    <script type="text/javascript" src="../../libs/jquery/jquery-2.1.1.min.js"></script>
+</head>    
+<body>
+    <!-- wrapper -->  
+    <div id="wrapper">
+        <hl>Google Map</hl>
+        <!-- ストリートビュー表示 -->
+        <div id="svp_area">
+            <div id="svp"></div>
+        </div>
+    
+    <!-- テキストエリア -->
+    <div id="text_area">
+        <h3></h3>
+        <p>
+        </p>
+    </div>
+        
+    <!-- マップ表示 -->
+    <div id="map"></div>
+    </div>
+
+
+    <!-- サイドバーナビゲーション -->
+    <ul id="navigation">
+        <li class="home" id="home"><a href="./home.html" title="Home"></a></li>
+        <li class="search"><a href="#" title="Search"></a></li>
+        <li class="about"><a href="#" title="About"></a></li>
+    </ul>
+    
     <script type="text/javascript">
         $(function() {
             $('#navigation a').stop().animate({'marginLeft':'-85px'},1000);
@@ -40,6 +54,5 @@
             );
         });
     </script>
-	
 </body>
 </html>

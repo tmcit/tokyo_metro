@@ -25,12 +25,20 @@
 			return;
 		}
 
-		public function get_places($prms, $ucode) {
+		public function get_places($prms) {
 			$apiName = "places/";
-			$apiUrl = $this->baseUrl.$apiName.$ucode;
+			$apiUrl = $this->baseUrl.$apiName;
 
 			$decoded_json = self::get_decoded_json($apiUrl, $prms);
-			return $decoded_json;
+				switch ($prms['rdf:type']) {
+				case 'odpt:Station':
+					return $decoded_json;
+					break;
+				default:
+					# code...
+					break;
+			}
+			return;
 		}
 
 		private function get_decoded_json($apiUrl, $prms) {
@@ -48,6 +56,19 @@
 				$temp .= $key."=".urlencode($value);
 			}
 			return $temp;
+		}
+
+		//緯度,軽度,半径を設定 
+		public function searchStation($lat, $lon, $radius) {
+			$prm= array('rdf:type'=>'odpt:Station', 'lat'=>$lat, 'lon'=>$lon, 'radius'=>$radius);
+			$array = self::get_places($prm);
+			// $arrays[] = array();
+			// foreach ($array as $key => $value) {
+				// $lat = $array->{'geo:lat'};
+				// $lon = $array->{'geo:lon'};
+				// $arrays[] = self::get_datapoints(array('rdf:type'=>'odpt:Station', '));
+			// }
+			return $array;
 		}
 
 		//時刻表
