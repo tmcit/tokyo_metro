@@ -37,7 +37,7 @@ ul#navigation .about a      {
     background-image: url(./img/building.png);
 }
 ul#navigation .search a      {
-    background-image: url(../images/search.png);
+    background-image: url(./img/metro.png);
 }
 ul#navigation .map div {
     display: block;
