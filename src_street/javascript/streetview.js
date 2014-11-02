@@ -30,7 +30,7 @@ function Initialize() {
         });
     // ストリートビューの設定
     svp.setPov(
-        { heading: 0, pitch: 0, zoom: 0 }
+        { heading: 0, pitch: 0, zoom: 1 }
         );
     //地図とストリートビューの同期
     map.setStreetView(svp);
