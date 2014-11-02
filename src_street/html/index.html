@@ -10,114 +10,7 @@
     <!--jquery.cookie.js-->
     <script type="text/javascript" src="../../libs/jquery-cookie/jquery.cookie.js"></script>
 
-    <script type="text/javascript" src="../javascript/streetview.js"></script>    
-
-    <script type="text/javascript">
-        
-    </script>
-
-    <script type="text/javascript">
-        //動的にscriptタグを生成してAPIを叩く
-        function GetAroundPlace() {
-            var element = document.createElement("script");
-            element.src = GenerateRequestUrl();
-            document.body.appendChild(element);
-        }
-
-        //YahooAPIのリクエストUrlを生成
-        function GenerateRequestUrl() {
-            var requrl = "http://placeinfo.olp.yahooapis.jp/V1/get?";
-            var appid = "appid=" + "dj0zaiZpPUlBQWJWT0tLOUJpNyZzPWNvbnN1bWVyc2VjcmV0Jng9NjA-";
-            var lat = "&lat=" + svp.getPosition().lat();
-            var lon = "&lon=" + svp.getPosition().lng();
-            var callback = "&callback=" + "getYahooJSON";
-
-            return requrl + appid + lat + lon + callback;
-        }
-
-        var json;
-        //APIから帰ってきたデータを受け取る
-        function getYahooJSON(json) {
-            $("#log").empty();
-
-            for (var key in json.ResultSet.Result) {
-                var data = json.ResultSet.Result[key];
-                $("#log").append($("<p>").html(data.Name + " :"  + data.Category));
-            }
-            //for (var key in json.ResultSet.Area) {
-            //    var data = json.ResultSet.Area[key];
-            //    $("#log").append($("<p>").html(data.Name + " :" + data.Type));
-            //}
-        }
-    </script>
-
-    <script type="text/javascript">        
-
-        function GenerateGurunaviRequestUrl(){
-            var requrl = "http://api.gnavi.co.jp/ver2/RestSearchAPI/?";
-            requrl += "keyid=" + "0c7aaf7272c9db0e0c7da255a8bafc30";
-            requrl += "&format=" + "json";
-            requrl += "&input_coordinates_mode=" + "1";
-            requrl += "&latitude=" + svp.getPosition().lat();
-            requrl += "&longitude=" + svp.getPosition().lng();
-            requrl += "&range=" + "1";
-            requrl += "&hit_per_page=" + "10";
-            requrl += "&callback=" + "getGurunaviJSON";
-
-            return requrl;
-        }
-
-        function GetRestaurant() {
-            var element = document.createElement("script");
-            element.src = GenerateGurunaviRequestUrl();
-            document.body.appendChild(element);
-        }
-        
-        function getGurunaviJSON(json) {
-            console.log(json);
-            
-            var categories = CategoryList(json.rest);
-            console.log(categories);
-
-            for (var key in json.rest) {
-                var rest = json.rest[key];
-
-            }
-        }
-
-
-        function CreateCategoryButton() {
-            var element = document.createElement("button");
-            element.innerHTML = 'ラーメン';
-            var parent = document.getElementById("infoarea");
-            parent.appendChild(element);
-        }
-
-        function CategoryList(rest) {
-            var storage = {};
-            var categories = [];
-
-            for (var key in rest) {
-                var data = rest[key];
-                var category = data.categories.category_name_s[0];
-
-                if (!(category in storage)) {
-                    storage[category] = true;
-                    categories.push(category);
-                }
-            }
-
-            return categories;
-        }
-    </script>
-
-    <script type="text/javascript">
-        function WriteCookie() {
-            $.cookie("lat", svp.getPosition().lat(), { path: '/' });
-            $.cookie("lng", svp.getPosition().lng(), { path: '/' });
-        }
-
-    </script>
+    <script type="text/javascript" src="../javascript/streetview.js"></script>
 
     <!--Shadowbox.js-->
     <link type="text/css" href="../../libs/shadowbox-3.0.3/shadowbox.css" rel="stylesheet" media="all" />
@@ -141,6 +34,13 @@
                 }
             );
         });
+    </script>
+
+    <script type="text/javascript">
+        function WriteCookie() {
+            $.cookie("lat", svp.getPosition().lat(), { path: '/' });
+            $.cookie("lng", svp.getPosition().lng(), { path: '/' });
+        }
     </script>
 
 
