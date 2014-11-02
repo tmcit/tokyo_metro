@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <title></title>
     </head>
-    <body body bgcolor="#ffffff">
+    <body bgcolor="#ffffff">
 		<?php
             require 'GuruNavi.php';
             require 'GuruNaviParser.php';

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <!--jQuery-->
+    <script type="text/javascript" src="../../libs/jquery/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="../../libs/jquery-cookie/jquery.cookie.js"></script>
+
+    <script type="text/javascript" >
+        var param = "lat=" + $.cookie("lat") + "&lng=" + $.cookie("lng");
+        location.href = "../php/place.php?" + param;
+    </script>
+</head>
+<body></body>
+</html>
