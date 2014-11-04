@@ -22,7 +22,7 @@
 					# code...
 					break;
 			}
-			return;
+			return ;
 		}
 
 		public function get_places($prms) {
@@ -44,6 +44,7 @@
 		private function get_decoded_json($apiUrl, $prms) {
 			$prms['acl:consumerKey'] = $this->token;
 			$prms = self::get_prms($prms);
+			print $apiUrl.$prms;
 			$json = file_get_contents($apiUrl.$prms);
 			$decoede_json = json_decode($json);
 			return $decoede_json;
@@ -74,7 +75,6 @@
 			return $array;
 		}
 
-		private function station($result)
 
 		//時刻表
 		private function StationTimetable( $result ){
@@ -192,41 +192,7 @@
 			return $english;
 		}
 
-		//運行情報
-		public function TrainInformation( $result ){
-			return $result;
-		}
-
-		//列車ロケーション情報
-		public function Train( $result ){
-			return $result;
-		}
-
-		//駅情報
-		public function Station( $result ){
-			return $result;
-		}
-
-		//駅施設情報 
-		public function StationFacility( $result ){
-			return $result;
-		}
-
-		//駅乗降人員数 
-		public function PassengerSurvey( $result ){
-			return $result;
-		}
-
-		//鉄道路線情報 
-		public function Railway( $result ){
-			return $result;
-		}
-
-		//運賃  
-		public function RailwayFare( $result ){
-			return $result;
-		}
-
+		
 //==========================================================================================================
 //==========================================================================================================
 //==========================================================================================================
