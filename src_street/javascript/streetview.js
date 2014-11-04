@@ -1,10 +1,10 @@
 var map, svp;
 
 function Initialize() {
-    // ˆÜ“xEŒo“x•Ï”
+    // ç·¯åº¦ãƒ»çµŒåº¦å¤‰æ•°
     var latlng = new google.maps.LatLng(35.698683, 139.774219);
 
-    //’n}‚Ìİ’è
+    //åœ°å›³ã®è¨­å®š
     var mapOption = {
         heading: 0,
         zoom: 18,
@@ -13,10 +13,10 @@ function Initialize() {
         scrollwheel: false,
         draggable: false
     };
-    //’n}ƒIƒuƒWƒFƒNƒg¶¬
+    //åœ°å›³ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆç”Ÿæˆ
     map = new google.maps.Map(document.getElementById("map"), mapOption);
 
-    //ƒXƒgƒŠ[ƒgƒrƒ…[ƒpƒmƒ‰ƒ}¶¬
+    //ã‚¹ãƒˆãƒªãƒ¼ãƒˆãƒ“ãƒ¥ãƒ¼ãƒ‘ãƒãƒ©ãƒç”Ÿæˆ
     svp = new google.maps.StreetViewPanorama(        
         document.getElementById("svp"), {
             position: map.getCenter(),
@@ -28,22 +28,43 @@ function Initialize() {
                 position: google.maps.ControlPosition.RIGHT_CENTER
             }
         });
-    // ƒXƒgƒŠ[ƒgƒrƒ…[‚Ìİ’è
+    // ã‚¹ãƒˆãƒªãƒ¼ãƒˆãƒ“ãƒ¥ãƒ¼ã®è¨­å®š
     svp.setPov(
         { heading: 0, pitch: 0, zoom: 1 }
         );
-    //’n}‚ÆƒXƒgƒŠ[ƒgƒrƒ…[‚Ì“¯Šú
+    //åœ°å›³ã¨ã‚¹ãƒˆãƒªãƒ¼ãƒˆãƒ“ãƒ¥ãƒ¼ã®åŒæœŸ
     map.setStreetView(svp);
     map.bindTo("center", svp, "position");
 
-    //•\¦‚µ‚Ä‚¢‚éŒ»İˆÊ’u
+    //è¡¨ç¤ºã—ã¦ã„ã‚‹ç¾åœ¨ä½ç½®
     google.maps.event.addListener(svp, "tilesloaded", review);
     google.maps.event.addListener(svp, "position_changed", review);
 }
 
+/**
+ * è¡¨ç¤ºåº§æ¨™ãŒå¤‰ã‚ã£ãŸã¨ãã«ã—ãŸã„å‡¦ç†
+ */
 function review() {
-    //•\¦À•W‚ª•Ï‚í‚Á‚½‚Æ‚«‚É‚µ‚½‚¢ˆ—
+    IsNearStation();
 }
 
-//ƒy[ƒW“Ç‚İ‚İ‚ÉInitialize()ŒÄ‚Ño‚µ
+/**
+ * ç¾åœ¨åœ°ã®è¿‘ãã«åœ°ä¸‹é‰„ã®é§…ãŒã‚ã‚‹ã‹ã©ã†ã‹
+ */
+function IsNearStation() {
+    //phpã®é–¢æ•°ã‚’phpçµŒç”±ã§å©ã    
+    $.ajax({
+        type: "POST",
+        url: "../php/getNearStation.php",
+        cache: false,
+        data: { lat: svp.getPosition().lat(),
+                lng: svp.getPosition().lng() },
+        success: function(isNear){
+            //ä¸Šæ‰‹ãè¡Œã‘ã°çµæœãŒisNearã«true/falseã§æ ¼ç´ã•ã‚Œã‚‹ã¯ãš
+            console.log(isNear);
+        }
+    });
+}
+
+//ãƒšãƒ¼ã‚¸èª­ã¿è¾¼ã¿æ™‚ã«Initialize()å‘¼ã³å‡ºã—
 google.maps.event.addDomListener(window, 'load', Initialize);

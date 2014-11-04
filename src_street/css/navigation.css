@@ -5,7 +5,7 @@ ul#navigation {
     top: 10px;
     left: 0px;
     list-style: none;
-    z-index:9999;
+    z-index:1;
 }
 ul#navigation li {
     width: 100px;
@@ -33,10 +33,10 @@ ul#navigation li a {
 ul#navigation .gurume a{
     background-image: url(./img/food.png);
 }
-ul#navigation .about a      {
+ul#navigation .place a      {
     background-image: url(./img/building.png);
 }
-ul#navigation .search a      {
+ul#navigation .station a      {
     background-image: url(./img/metro.png);
 }
 ul#navigation .map div {
