@@ -38,6 +38,8 @@ function initialize() {
 }
 
 function selectRailway() {
+	
+	GDonw
 	var select_html = "";
 
 	select_html += "<form>";

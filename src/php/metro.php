@@ -34,9 +34,9 @@
 				case 'odpt:Station':
 					return $decoded_json;
 					break;
-				default:
-					# code...
-					break;
+				case 'ug:Poi':
+					return $decoded_json;
+				break;
 			}
 			return;
 		}
@@ -58,13 +58,23 @@
 			return $temp;
 		}
 
-		//緯度,軽度,半径をから、地物を検索
+		//緯度,軽度,半径をから、駅を検索
 		public function searchStation($lat, $lon, $radius) {
 			$prm= array('rdf:type'=>'odpt:Station', 'lat'=>$lat, 'lon'=>$lon, 'radius'=>$radius);
 			$array = self::get_places($prm);
 			
 			return $array;
 		}
+
+		//緯度,経度,半径から,駅の出口を検索
+		public function searchStationExit($lat, $lon, $radius) {
+			$prm= array('rdf:type'=>'ug:Poi', 'lat'=>$lat, 'lon'=>$lon, 'radius'=>$radius);
+			$array = self::get_places($prm);
+		
+			return $array;
+		}
+
+		private function station($result)
 
 		//時刻表
 		private function StationTimetable( $result ){
