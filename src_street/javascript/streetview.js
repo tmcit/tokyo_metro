@@ -59,12 +59,40 @@ function IsNearStation() {
         cache: false,
         data: { lat: svp.getPosition().lat(),
                 lng: svp.getPosition().lng() },
-        success: function(isNear){
-            //上手く行けば結果がisNearにtrue/falseで格納されるはず
-            console.log(isNear);
+        success: function(html){
+            //console.log(html);
+            exitArray = ToArray(html);
+            console.log(exitArray);
         }
     });
 }
+
+
+/**
+ * @param {type} phpの実行結果
+ * @returns {Array|result|array} 実行結果から出口情報を抜き出して配列化したもの
+ */
+function ToArray(html){
+    result = new Array();    
+    
+    array = html.split(/\r\n|\r|\n/);
+    for (i = 0; i < array.length; i++) {
+        //識別子が見つかったら、識別子を除いて配列に格納
+        if(array[i].indexOf("***:") !== -1){
+            result[0] = array[i].substr(4);
+            break;
+        }
+    }
+    
+    if(result[0] === "true"){
+        result[1] = array[++i];
+        result[2] = array[++i];
+        result[3] = array[++i];
+    }
+    
+    return result;
+}
+
 
 //ページ読み込み時にInitialize()呼び出し
 google.maps.event.addDomListener(window, 'load', Initialize);
