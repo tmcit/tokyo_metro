@@ -34,9 +34,15 @@
         });
     </script>
 
+    <!--toastr-->
+    <link href="../../libs/toastr/toastr.css" rel="stylesheet"/>
+    <script src="../../libs/toastr/toastr.js"></script>    
+    
     <!--original-->
     <link type="text/css" href="../css/index.css" rel="stylesheet" />
+    <link type="text/css" href="../css/toast.css" rel="stylesheet" />
     <script type="text/javascript" src="../javascript/streetview.js"></script>
+    <script type="text/javascript" src="../javascript/station.js"></script>
     <script type="text/javascript">
         function WriteCookie() {
             $.cookie("lat", svp.getPosition().lat(), { path: '/' });
@@ -71,5 +77,6 @@
                 <div id="map"></div>
             </div>
         </div>
+        
     </body>
 </html>

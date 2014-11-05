@@ -12,7 +12,7 @@
     $lng = $_POST['lng'];
         
     $metro = new metro();
-    $exit = $metro->searchStationExit($lat, $lng, 50);
+    $exit = $metro->searchStationExit($lat, $lng, 20);
     
     var_dump($exit);
     $isExist = IsNearStation($exit);    

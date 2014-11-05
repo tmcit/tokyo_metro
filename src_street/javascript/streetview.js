@@ -2,7 +2,7 @@ var map, svp;
 
 function Initialize() {
     // 緯度・経度変数
-    var latlng = new google.maps.LatLng(35.698683, 139.774219);
+    var latlng = new google.maps.LatLng(35.702942, 139.77175499999998);
 
     //地図の設定
     var mapOption = {
@@ -45,52 +45,7 @@ function Initialize() {
  * 表示座標が変わったときにしたい処理
  */
 function review() {
-    IsNearStation();
-}
-
-/**
- * 現在地の近くに地下鉄の駅があるかどうか
- */
-function IsNearStation() {
-    //phpの関数をphp経由で叩く    
-    $.ajax({
-        type: "POST",
-        url: "../php/getNearStation.php",
-        cache: false,
-        data: { lat: svp.getPosition().lat(),
-                lng: svp.getPosition().lng() },
-        success: function(html){
-            //console.log(html);
-            exitArray = ToArray(html);
-            console.log(exitArray);
-        }
-    });
-}
-
-
-/**
- * @param {type} phpの実行結果
- * @returns {Array|result|array} 実行結果から出口情報を抜き出して配列化したもの
- */
-function ToArray(html){
-    result = new Array();    
-    
-    array = html.split(/\r\n|\r|\n/);
-    for (i = 0; i < array.length; i++) {
-        //識別子が見つかったら、識別子を除いて配列に格納
-        if(array[i].indexOf("***:") !== -1){
-            result[0] = array[i].substr(4);
-            break;
-        }
-    }
-    
-    if(result[0] === "true"){
-        result[1] = array[++i];
-        result[2] = array[++i];
-        result[3] = array[++i];
-    }
-    
-    return result;
+    ToastNearStation();
 }
 
 
