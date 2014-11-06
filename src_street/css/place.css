@@ -1,0 +1,126 @@
+/**** place.php ****/
+* {
+    font-family: 'メイリオ';
+}
+
+body{  
+    margin: 0;  
+    padding: 60px 0 70px 0;  
+}  
+* html body{  
+    overflow: hidden;  
+}
+
+div#header {  
+    position: fixed !important;  
+    position: absolute;  
+    top: 0;  
+    left: 0;  
+    width: 100%;  
+    height: 55px;  
+    background-color: #00a3d9;  
+    color: #fff;
+    z-index: 100;
+    padding: 15px;
+    padding-bottom: 10px;
+    text-align: center;
+    font-size: 1.4em;
+}  
+div#footer {  
+    position: fixed !important;  
+    position: absolute;  
+    bottom: 0;  
+    left: 0;  
+    width: 100%;  
+    height: 55px;  
+    background-color: #00a3d9;  
+    color: #fff;  
+    text-align: right;
+    padding: 10px;
+}  
+
+.place {
+    height: 100%;  
+    overflow: auto; 
+}
+
+.place .here {
+    
+}
+
+.place .area {
+    
+}
+
+.place .info:before {
+    width:auto;
+    right:10px;
+    left:10px;
+    bottom:0;
+    -webkit-box-shadow:0 8px 10px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow:0 8px 10px rgba(0, 0, 0, 0.5);
+    box-shadow:0 8px 10px rgba(0, 0, 0, 0.5);
+}
+
+.place .info .name {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.place .info .more {
+    margin: 0px 20px 8px 8px;
+}
+
+.place .info .category {
+    height: 20px;
+    float: left;
+    margin-left: 1.5em;
+}
+.place .info .combined {
+    height: 20px;
+    float: left;
+    margin-left: 3.3em;
+}
+
+#cate{
+    height: 20px;
+    vertical-align: middle;
+    font-size: 0.9em;
+    background: #FF8000;
+    float: left;
+}
+#comb{
+    height: 20px;
+    vertical-align: middle;
+    font-size: 0.9em;
+    background: #F781D8;
+    float: left;
+}
+
+/**CSS drop-shadows without images**/
+.drop-shadow {
+    position:relative;
+    width:60%;
+    padding: 0.5em 1em ;
+    margin: 3em auto;
+    background:#fff;
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 60px rgba(0, 0, 0, 0.1) inset;
+    -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+ 
+.drop-shadow:before,
+.drop-shadow:after {
+    content:"";
+    position:absolute;
+    z-index:-2;
+    bottom:15px;
+    left:10px;
+    width:50%;
+    height:20%;
+}
+ 
+.drop-shadow:after{
+    right:10px;
+    left:auto;
+}

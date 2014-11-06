@@ -8,7 +8,7 @@ and open the template in the editor.
     <head>
         <meta charset="UTF-8">
         <title></title>
-        <link type="text/css" href="../css/inner_shadowbox.css" rel="stylesheet" />
+        <link type="text/css" href="../css/station.css" rel="stylesheet" />
     </head>
     <body bgcolor="#ffffff">
         <?php
@@ -20,7 +20,7 @@ and open the template in the editor.
             $metro = new metro();
             $station = $metro->searchStation($lat, $lng, 1000);
             
-            //var_dump($station);
+            var_dump($station);
             echo '<div class="station">';
             foreach ($station as $key) {
                 echo '<div class="title">' .$key->{"dc:title"} .'</div>';

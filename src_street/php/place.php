@@ -8,9 +8,16 @@ and open the template in the editor.
     <head>
         <meta charset="UTF-8">
         <title></title>
-        <link type="text/css" href="../css/inner_shadowbox.css" rel="stylesheet" />
+        <link type="text/css" href="../css/place.css" rel="stylesheet" />
+        
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     </head>
-    <body bgcolor="#ffffff">
+    <body bgcolor="#ddd">
         <?php
             require 'WebResponse.php';            
 
@@ -28,18 +35,27 @@ and open the template in the editor.
 
             $xml = simplexml_load_string($res);
 
+            echo '<div id="header">"' .$xml->Address .'" 付近の施設情報</div>';
             echo '<div class="place">';
-            echo '<div class="here">今いる場所は、' .$xml->Address ." です。</div>\n";
-            echo '<div class="area">エリア名は、' .$xml->Area[0]->Name ." です。</div>\n";
-
-            echo '<div class="info">';
+            
             foreach ($xml->Result as $key => $value) {
-				echo '<div class="name">' .$value->Name .'</div>';
-				echo '<div class="category">' .$value->Category .'</div>';
-				echo '<div class="combined">' .$value->Combined .'</div>';
+                echo '<div class="drop-shadow info">';
+                    echo '<h2 class="name">' .$value->Name .'</h2>';
+                    
+                    echo'<div class="more">';
+                    echo '<span class="label" id="cate">カテゴリ</span>';
+                    echo '<p class="category">' .$value->Category .'</p>';
+                    echo '<div style="clear:both;"></div></div>';
+                    
+                    echo'<div class="more">';
+                    echo '<span class="label" id="comb">場所</span>';
+                    echo '<p class="combined">' .$value->Combined .'</p>';
+                    echo '<div style="clear:both;"></div></div>';
+                echo '</div>';
             }
-            echo '</div>';
             echo '</div>'; 
+            echo '<div id="footer">Area:　' .$xml->Area[0]->Name ."　　</br>"
+                    .'Address:　' .$xml->Address .'　　</div>';
         ?>
     </body>
 </html>
