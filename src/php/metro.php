@@ -48,6 +48,40 @@
 			}
 			return $data;
 		}	
+
+
+		public function station_timetable($odpt_Station) {
+			$prm = array('rdf:type'=>'odpt:StationTimetable', 'odpt:station'=>$odpt_Station);
+			$data = self::get_datapoints($prm);
+			foreach ($data as $value) {
+				//	路線
+				if( $value->{'odpt:railway'} ) {
+					$railway = self::cut_word( $value->{'odpt:railway'})[1];
+					// print $data;
+					$value->{'odpt:railway'} = self::railway_jp($railway);
+				 }
+	
+				//	社名
+				if( $value->{'odpt:operator'} ) {
+					$operator = self::cut_word( $value->{'odpt:operator'})[0];
+					$value->{'odpt:operator'} = self::train_owner_jp($operator);
+				}
+				// 駅
+				if ($value->{'odpt:station'}) {
+					$station = self::cut_word($value->{'odpt:station'})[2];
+					$value->{'odpt:station'} = self::station_jp($station);
+					// print_r(	$value->{'odpt:station'});
+				}
+				// 方面
+				if ($value->{'odpt:railDirection'}) {
+					$railway_direction = self::cut_word($value->{'odpt:railDirection'})[1];
+					$value->{'odpt:railDirection'} = self::rail_direction_jp($railway_direction);
+				}
+			}
+			print_r($data[0]);
+			return $data;
+
+		}
 	
 
 		private function get_datapoints($prm) {
@@ -125,7 +159,7 @@
 
  		//方向
  		private function rail_direction_jp($english) {
- 			$json = file_get_contents("./tokyo_metro_json/metro_rail_directionDict.json");
+ 			$json = file_get_contents("../json/tokyo_metro_json/metro_rail_directionDict.json");
  			$data = json_decode($json);
 			foreach ($data as $key=>$value) {
 				if( $key === $english ){
@@ -137,7 +171,7 @@
 
  		// 日本語の駅名取得
 		private function station_jp($english) {
-			$json = file_get_contents("./tokyo_metro_json/metro_stationDict.json");
+			$json = file_get_contents("../json/tokyo_metro_json/metro_stationDict.json");
 			$data = json_decode($json);
 			foreach ($data as $key=>$value) {
 				if( $key === $english ){
