@@ -6,7 +6,7 @@
         <link type="text/css" href="../css/inner_shadowbox.css" rel="stylesheet" />
     </head>
     <body bgcolor="#ffffff">
-		<?php
+        <?php
             require 'GuruNavi.php';
             require 'GuruNaviParser.php';
             
