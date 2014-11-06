@@ -173,7 +173,7 @@
 					return $value;
 				}
 			}
-			return '';
+			return;
  		}
 
  		//方向
