@@ -2,7 +2,8 @@
 
 class WebResponse {
     
-    public function GenerateRequestParameter($param){        
+    public function GenerateRequestParameter($param){
+        $req = "";
         foreach ($param as $key => $value) {
             $req .= "&" .$key ."=" .$value;
         }
