@@ -8,6 +8,7 @@ and open the template in the editor.
     <head>
         <meta charset="UTF-8">
         <title></title>
+        <link type="text/css" href="../css/inner_shadowbox.css" rel="stylesheet" />
     </head>
     <body bgcolor="#ffffff">
         <?php
@@ -27,16 +28,18 @@ and open the template in the editor.
 
             $xml = simplexml_load_string($res);
 
+            echo '<div class="place">';
             echo '<div class="here">今いる場所は、' .$xml->Address ." です。</div>\n";
-            echo '<div class="here">エリア名は、' .$xml->Area[0]->Name ." です。</div>\n";
+            echo '<div class="area">エリア名は、' .$xml->Area[0]->Name ." です。</div>\n";
 
-            echo '<div class="place_info">';
+            echo '<div class="info">';
             foreach ($xml->Result as $key => $value) {
-				echo '<div class="Name">' .$value->Name .'</div>';
-				echo '<div class="Category">' .$value->Category .'</div>';
-				echo '<div class="Combined">' .$value->Combined .'</div>';
+				echo '<div class="name">' .$value->Name .'</div>';
+				echo '<div class="category">' .$value->Category .'</div>';
+				echo '<div class="combined">' .$value->Combined .'</div>';
             }
-            echo '</div>';      
+            echo '</div>';
+            echo '</div>'; 
         ?>
     </body>
 </html>

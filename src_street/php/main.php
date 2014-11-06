@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title></title>
+        <link type="text/css" href="../css/inner_shadowbox.css" rel="stylesheet" />
     </head>
     <body bgcolor="#ffffff">
 		<?php
@@ -25,6 +26,7 @@
             $res = $gurunavi->GetResponse($param);            
             $parser = new GuruNaviParser($res);                      
             
+            echo '<div class="gourmet">';
             //html generate
             if(isset($_POST['submit'])){
                 //next choice
@@ -32,7 +34,7 @@
                 $rest = $parser->RestaurantMatchCategory($selectedCategory);
                 echo '<form method="post" action="restinfo.php">';
                 foreach ($rest as $key) {
-                    echo '<input type="submit" name="submit[' .$key->id .']" '
+                    echo '<input type="submit" class="rest" name="submit[' .$key->id .']" '
                             . 'value="' .$key->name->name .'"><br/>';                    
                 }
                 echo '</form>';
@@ -42,10 +44,11 @@
                 $categories = $parser->GetRestaurantCategoriesCount(10);  
                 echo '<form method="post" action="">';
                 foreach ($categories as $key => $value) {                    
-                    echo '<input type="submit" name="submit[' .$key .']" value="' .$key .'"><br/>';                    
+                    echo '<input type="submit" class="category" name="submit[' .$key .']" value="' .$key .'"><br/>';                    
                 }
                 echo '</form>';
-            }            
+            }
+            echo '</div>';
         ?>
     </body>
 </html>
