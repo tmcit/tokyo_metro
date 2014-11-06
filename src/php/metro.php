@@ -30,7 +30,7 @@
 						$value->{'odpt:connectingRailway'}{$key} = self::railway_jp(self::cut_word($railway)[1]);	
 					}
 				}
-			}
+			
 			return $data;
 		}
 
