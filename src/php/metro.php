@@ -92,7 +92,7 @@
 			return $decoede_json;
 		}
 
-		private function get_plcaces($prm) {
+		private function get_places($prm) {
 			$api_name = 'places';
 			$api_url = $this->base_url.$api_name;
 			$decoede_json = self::get_decoded_json($api_url, $prm);
