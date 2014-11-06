@@ -12,6 +12,25 @@
 		public function searchStation($lat, $lon, $radius) {
 			$prm= array('rdf:type'=>'odpt:Station', 'lat'=>$lat, 'lon'=>$lon, 'radius'=>$radius);
 			$data = self::get_places($prm);		
+				//	路線
+				if( $value->{'odpt:railway'} ){
+					$railway = self::cut_word( $value->{'odpt:railway'})[1];
+					// print $data;
+					$value->{'odpt:railway'} = self::railway_jp($railway);
+				 }
+	
+				//	社名
+				if( $value->{'odpt:operator'} ){
+					$operator = self::cut_word( $value->{'odpt:operator'})[0];
+					$value->{'odpt:operator'} = self::train_owner_jp($operator);
+				}
+				// 乗り換え可能路線
+				if ($value->{'odpt:connectingRailway'}) {
+					foreach ($value->{'odpt:connectingRailway'} as $key=>$railway) {
+						$value->{'odpt:connectingRailway'}{$key} = self::railway_jp(self::cut_word($railway)[1]);	
+					}
+				}
+			}
 			return $data;
 		}
 
