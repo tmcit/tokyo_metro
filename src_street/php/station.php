@@ -17,7 +17,7 @@ and open the template in the editor.
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     </head>
-    <body bgcolor="#ffffff">
+    <body>
         <?php
             require '../../src/php/metro.php';
 
@@ -27,11 +27,13 @@ and open the template in the editor.
             $metro = new metro();
             $station = $metro->searchStation($lat, $lng, 1000);
             
-            //echo '<div id="header">1km圏内にある東京メトロの駅情報</div>';
+            var_dump($station);
+            echo '<div id="header">近くにある東京メトロの駅情報</div>';
             
             echo '<div class="station">';
             foreach ($station as $key) {
                 echo '<div class="info">';
+                    echo '<div class="dist">およそ' .nearlyDistance($key->{"geo:lat"}, $key->{"geo:long"}).'m先</div>';
                     echo '<h2 class="title">' .$key->{"dc:title"} .'</h2>';
                     echo '<h4 class="alpha">' .toAlphabet($key->{"owl:sameAs"}) .'</h4>';
                     foreach (getRailwayColorArray($key) as $railway => $color) {                        
@@ -40,7 +42,7 @@ and open the template in the editor.
                 echo '</div>';
             }
             echo '</div>';            
-            //echo '<div id="footer">1km圏内で、' .count($station) .' 駅見つかりました。</div>';
+            echo '<div id="footer">1km圏内で、' .count($station) .' 駅見つかりました。</div>';
         ?>
         
         <?php
@@ -89,6 +91,38 @@ and open the template in the editor.
                 "Fukutoshin" => "#9C5E31"
             ];   
             return $color[toAlphabet($railway)];
+        }
+        ?>
+        
+        <?php
+        //一の位で四捨五入
+        function nearlyDistance($lat, $lng){
+            return round(distance($lat, $lng, htmlspecialchars($_GET['lat']), htmlspecialchars($_GET['lng'])), -1);            
+        }
+
+        //2点間の緯度経度を計算
+        function distance($lat1, $lng1, $lat2, $lng2){            
+            $lat1 = toRadian($lat1);
+            $lat2 = toRadian($lat2);
+            $lng1 = toRadian($lng1);
+            $lng2 = toRadian($lng2);
+            
+            $latave = ($lat1 + $lat2) / 2;
+            $latdiff = $lat1 - $lat2;
+            $lngdiff = $lng1 - $lng2;
+            
+            $meridian = 6335439 / sqrt(pow(1 - 0.006694 * sin($latave) * sin($latave) , 3));
+            $primevertical = 6378137 / sqrt(1 - 0.006694 * sin($latave) * sin($latave));
+            
+            $x = $meridian * $latdiff;
+            $y = $primevertical * cos($latave) * $lngdiff;
+            
+            return sqrt(pow($x, 2) + pow($y, 2));
+        }
+                
+        //ラジアンに変換
+        function toRadian($num){
+            return $num * pi() / 180;
         }
         ?>
     </body>
