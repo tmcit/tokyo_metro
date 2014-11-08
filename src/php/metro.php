@@ -165,7 +165,7 @@
 
 		// 日本の列車種別取得
 		private function train_type_jp($english) {
-			$json = file_get_contents("./tokyo_metro_json/metro_train_typeDict.json");
+			$json = file_get_contents("../json/tokyo_metro_json/metro_train_typeDict.json");
 			$data = json_decode($json);
 			foreach ($data as $key=>$value) {
 				if( $key === $english ){
@@ -208,7 +208,7 @@
 					return $value;
 				}
 			}
-			$json = file_get_contents("./tokyo_metro_json/other_stationDict.json");
+			$json = file_get_contents("../json/tokyo_metro_json/other_stationDict.json");
 			$data = json_decode($json);
 			foreach ($data as $key=>$value) {
 				if( $key === $english ){
