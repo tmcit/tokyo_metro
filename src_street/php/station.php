@@ -27,9 +27,7 @@ and open the template in the editor.
             $metro = new metro();
             $station = $metro->searchStation($lat, $lng, 1000);
             
-            var_dump($station);
-            echo '<div id="header">近くにある東京メトロの駅情報</div>';
-            
+            echo '<div id="header">近くにある東京メトロの駅情報</div>';            
             echo '<div class="station">';
             foreach ($station as $key) {
                 echo '<div class="info">';
