@@ -33,30 +33,18 @@
             $res = $gurunavi->GetResponse($param);            
             $parser = new GuruNaviParser($res);                      
             
-            echo '<div class="gourmet">';
-            //html generate
-            if(isset($_POST['submit'])){
-                //next choice
-                $selectedCategory = key($_POST['submit']);
-                $rest = $parser->RestaurantMatchCategory($selectedCategory);
-                echo '<form method="post" action="restinfo.php">';
-                foreach ($rest as $key) {
-                    echo '<input type="submit" class="rest" name="submit[' .$key->id .']" '
-                            . 'value="' .$key->name->name .'"><br/>';                    
-                    echo '<img src="' .$key->image_url->thumbnail .'" />';
+            
+            $categories = $parser->GetRestaurantCategoriesCount(50);
+            foreach ($categories as $category => $count) {
+                echo '<div class="panel panel-warning">';
+                echo '<div class="panel-heading">' .$category .'<span class="badge">' .$count .'</span></div>';
+                echo '<div class="panel-body">';
+                $restaurants = $parser->RestaurantMatchCategory($category);
+                foreach ($restaurants as $rest) {
+                    echo '<a href="./restinfo.php?id=' .$rest->id .'">' .$rest->name->name .'</a></br>';
                 }
-                echo '</form>';
+                echo '</div></div>';
             }
-            else {
-                //form draw
-                $categories = $parser->GetRestaurantCategoriesCount(100);  
-                echo '<form method="post" action="">';
-                foreach ($categories as $key => $value) {                    
-                    echo '<input type="submit" class="category" name="submit[' .$key .']" value="' .$key .'"><br/>';                    
-                }
-                echo '</form>';
-            }
-            echo '</div>';
         ?>
     </body>
 </html>
