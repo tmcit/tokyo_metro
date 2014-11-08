@@ -1,0 +1,75 @@
+/**** station.php ****/
+* {
+    font-family: 'メイリオ';
+}
+
+body{  
+    margin: 0;  
+    padding: 50px 0 30px 0;
+}  
+* html body{  
+    overflow: hidden;  
+}
+
+div#header {  
+    position: fixed !important;  
+    position: absolute;  
+    top: 0;  
+    left: 0;  
+    width: 100%;  
+    height: 55px;  
+    background-color: #00a3d9;  
+    color: #fff;
+    z-index: 100;
+    padding: 15px;
+    padding-bottom: 10px;
+    text-align: center;
+    font-size: 1.4em;
+}  
+div#footer {  
+    position: fixed !important;  
+    position: absolute;  
+    bottom: 0;  
+    left: 0;  
+    width: 100%;  
+    height: 40px;  
+    background-color: #00a3d9;  
+    color: #fff;  
+    text-align: right;
+    padding: 10px;
+}  
+
+.station {
+    height: 100%;  
+    overflow: auto;
+    background: #eeeeee;
+}
+
+.station .info {
+    margin: 70px 0;
+    background: #fff;
+}
+
+.station .info .dist {
+    text-align: center;
+    background-color: #9C9C9C;
+    color: #fff;
+    font-size: 1.1em;
+    padding: 2px;
+}
+
+.station .info .title {
+    padding-top: 7px;
+    text-align: center;
+}
+
+.station .info .alpha {
+    text-align: center;
+}
+
+.station .info .railway {
+    text-align: center;
+    color: #fff;
+    font-size: 1.2em;
+}
+

@@ -31,18 +31,4 @@
 function IsNearStation($exit) {
     return count($exit) > 0;
 }
-    
-function OutputXML($exit, $isExist){
-    $dom = new DOMDocument('1.0', 'UTF-8');
-    $result = $dom->appendChild($dom->createElement('result'));
-
-    //要素を追加
-    $result->appendChild($dom->createElement('exist', $isExist));
-    $result->appendChild($dom->createElement('name', $exit[0]->{"dc:title"}));
-    $result->appendChild($dom->createElement('lat', $exit[0]->{"geo:lat"}));
-    $result->appendChild($dom->createElement('lng', $exit[0]->{"geo:long"}));
-    
-    //出力
-    $dom->formatOutput = true;
-}
 ?>

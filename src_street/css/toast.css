@@ -1,13 +1,25 @@
-/* toastのスタイルを定義する予定 */
+* {
+    font-family: 'メイリオ';
+}
 
 .toast_title {
     
 }
 
 .toast_msg {
-    
+    margin: 8px 0;
 }
 
 .toast_btn {
-    
+    background: #EEE;
+    border: 1px solid #DDD;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    color: #111;
+    width: 100%;
+    padding: 5px;
+}
+.toast_btn:hover {
+    background: #DDD;
 }

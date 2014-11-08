@@ -11,13 +11,13 @@ function ToastNearStation() {
                 lng: svp.getPosition().lng() },
         success: function(html){
             //console.log(html);
-            exitArray = ToArray(html);
-            console.log(exitArray);
+            exitArray = ToArray(html);            
             if(exitArray[0] === "true"){
                 //通知
                 title = '<div class="toast_title">' + exitArray[1] + " 付近です。</div>";
                 msg = '<div class="toast_msg">東京メトロに乗車しますか？</div>';
                 button = '<div><button type="button" class="toast_btn" onclick="RideMetro()">乗車する</button></div>';
+                toastr.options = {"timeOut": "7000", "extendedTimeOut": "1500"};
                 toastr.info(msg + button, title);
             }
         }

@@ -5,13 +5,41 @@
 	class metro {
 		private $token 	= '5dd14250f3a9800f224dff10be83fe71a4d4f8d803e340f7e4422775978a97b5';
 		private $base_url  = 'https://api.tokyometroapp.jp/api/v2/';
+<<<<<<< HEAD
 
 
 
+=======
+
+
+
+>>>>>>> 5db62243f8a33abb916c89fd2e048f3cb80d3b1f
 		//緯度,経度,半径から駅を検索
 		public function searchStation($lat, $lon, $radius) {
 			$prm= array('rdf:type'=>'odpt:Station', 'lat'=>$lat, 'lon'=>$lon, 'radius'=>$radius);
 			$data = self::get_places($prm);		
+<<<<<<< HEAD
+=======
+				//	路線
+				if( $value->{'odpt:railway'} ){
+					$railway = self::cut_word( $value->{'odpt:railway'})[1];
+					// print $data;
+					$value->{'odpt:railway'} = self::railway_jp($railway);
+				 }
+	
+				//	社名
+				if( $value->{'odpt:operator'} ){
+					$operator = self::cut_word( $value->{'odpt:operator'})[0];
+					$value->{'odpt:operator'} = self::train_owner_jp($operator);
+				}
+				// 乗り換え可能路線
+				if ($value->{'odpt:connectingRailway'}) {
+					foreach ($value->{'odpt:connectingRailway'} as $key=>$railway) {
+						$value->{'odpt:connectingRailway'}{$key} = self::railway_jp(self::cut_word($railway)[1]);	
+					}
+				}
+			
+>>>>>>> 5db62243f8a33abb916c89fd2e048f3cb80d3b1f
 			return $data;
 		}
 
@@ -48,6 +76,43 @@
 			}
 			return $data;
 		}	
+<<<<<<< HEAD
+=======
+
+
+		public function station_timetable($odpt_Station) {
+			$prm = array('rdf:type'=>'odpt:StationTimetable', 'odpt:station'=>$odpt_Station);
+			$data = self::get_datapoints($prm);
+			foreach ($data as $value) {
+				//	路線
+				if( $value->{'odpt:railway'} ) {
+					$railway = self::cut_word( $value->{'odpt:railway'})[1];
+					// print $data;
+					$value->{'odpt:railway'} = self::railway_jp($railway);
+				 }
+	
+				//	社名
+				if( $value->{'odpt:operator'} ) {
+					$operator = self::cut_word( $value->{'odpt:operator'})[0];
+					$value->{'odpt:operator'} = self::train_owner_jp($operator);
+				}
+				// 駅
+				if ($value->{'odpt:station'}) {
+					$station = self::cut_word($value->{'odpt:station'})[2];
+					$value->{'odpt:station'} = self::station_jp($station);
+					// print_r(	$value->{'odpt:station'});
+				}
+				// 方面
+				if ($value->{'odpt:railDirection'}) {
+					$railway_direction = self::cut_word($value->{'odpt:railDirection'})[1];
+					$value->{'odpt:railDirection'} = self::rail_direction_jp($railway_direction);
+				}
+			}
+			print_r($data[0]);
+			return $data;
+
+		}
+>>>>>>> 5db62243f8a33abb916c89fd2e048f3cb80d3b1f
 	
 
 		private function get_datapoints($prm) {
@@ -58,7 +123,11 @@
 			return $decoede_json;
 		}
 
+<<<<<<< HEAD
 		private function get_plcaces($prm) {
+=======
+		private function get_places($prm) {
+>>>>>>> 5db62243f8a33abb916c89fd2e048f3cb80d3b1f
 			$api_name = 'places';
 			$api_url = $this->base_url.$api_name;
 			$decoede_json = self::get_decoded_json($api_url, $prm);
@@ -120,12 +189,16 @@
 					return $value;
 				}
 			}
+<<<<<<< HEAD
 			return '';
+=======
+			return;
+>>>>>>> 5db62243f8a33abb916c89fd2e048f3cb80d3b1f
  		}
 
  		//方向
  		private function rail_direction_jp($english) {
- 			$json = file_get_contents("./tokyo_metro_json/metro_rail_directionDict.json");
+ 			$json = file_get_contents("../json/tokyo_metro_json/metro_rail_directionDict.json");
  			$data = json_decode($json);
 			foreach ($data as $key=>$value) {
 				if( $key === $english ){
@@ -137,7 +210,7 @@
 
  		// 日本語の駅名取得
 		private function station_jp($english) {
-			$json = file_get_contents("./tokyo_metro_json/metro_stationDict.json");
+			$json = file_get_contents("../json/tokyo_metro_json/metro_stationDict.json");
 			$data = json_decode($json);
 			foreach ($data as $key=>$value) {
 				if( $key === $english ){
