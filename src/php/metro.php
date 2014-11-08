@@ -1,29 +1,17 @@
 <?php
-	/**
-	* 
-	*/
+	
 	class metro {
 		private $token 	= '5dd14250f3a9800f224dff10be83fe71a4d4f8d803e340f7e4422775978a97b5';
 		private $base_url  = 'https://api.tokyometroapp.jp/api/v2/';
-<<<<<<< HEAD
 
-
-
-=======
-
-
-
->>>>>>> 5db62243f8a33abb916c89fd2e048f3cb80d3b1f
 		//緯度,経度,半径から駅を検索
 		public function searchStation($lat, $lon, $radius) {
 			$prm= array('rdf:type'=>'odpt:Station', 'lat'=>$lat, 'lon'=>$lon, 'radius'=>$radius);
-			$data = self::get_places($prm);		
-<<<<<<< HEAD
-=======
+			$data = self::get_places($prm);
+			foreach ($data as $value) {
 				//	路線
-				if( $value->{'odpt:railway'} ){
+				if ($value->{'odpt:railway'}) {
 					$railway = self::cut_word( $value->{'odpt:railway'})[1];
-					// print $data;
 					$value->{'odpt:railway'} = self::railway_jp($railway);
 				 }
 	
@@ -38,8 +26,10 @@
 						$value->{'odpt:connectingRailway'}{$key} = self::railway_jp(self::cut_word($railway)[1]);	
 					}
 				}
-			
->>>>>>> 5db62243f8a33abb916c89fd2e048f3cb80d3b1f
+			}
+
+			print_r($data);		
+
 			return $data;
 		}
 
@@ -76,15 +66,13 @@
 			}
 			return $data;
 		}	
-<<<<<<< HEAD
-=======
 
 
 		public function station_timetable($odpt_Station) {
 			$prm = array('rdf:type'=>'odpt:StationTimetable', 'odpt:station'=>$odpt_Station);
 			$data = self::get_datapoints($prm);
 			foreach ($data as $value) {
-				//	路線
+				//	路線を日本語に変換.対応したカラーコードがあれば配列に追加
 				if( $value->{'odpt:railway'} ) {
 					$railway = self::cut_word( $value->{'odpt:railway'})[1];
 					// print $data;
@@ -108,30 +96,24 @@
 					$value->{'odpt:railDirection'} = self::rail_direction_jp($railway_direction);
 				}
 			}
-			print_r($data[0]);
+			print_r($data[0]->{'odpt:railwayColor'});
 			return $data;
 
 		}
->>>>>>> 5db62243f8a33abb916c89fd2e048f3cb80d3b1f
 	
 
 		private function get_datapoints($prm) {
 			$api_name = "datapoints";
 			$api_url = $this->base_url.$api_name;
 			$decoede_json = self::get_decoded_json($api_url, $prm);
-	
 			return $decoede_json;
 		}
 
-<<<<<<< HEAD
-		private function get_plcaces($prm) {
-=======
 		private function get_places($prm) {
->>>>>>> 5db62243f8a33abb916c89fd2e048f3cb80d3b1f
 			$api_name = 'places';
 			$api_url = $this->base_url.$api_name;
 			$decoede_json = self::get_decoded_json($api_url, $prm);
-			
+
 			return $decoede_json;
 		}
 
@@ -154,6 +136,20 @@
 			}
 			return $temp;
 		}	
+
+			  //メトロ路線名に対応するカラーコードを取得する
+        public function getColor($railway){
+			$json = file_get_contents("../json/color_code/color_code.json");
+			$data = json_decode($json);
+
+			foreach ($data as $key=>$value) {
+				if( $key === $railway ){
+					return $value;
+				}
+			}	
+			return;          	
+		}
+
 
 		// 日本語の列車所有会社取得
 		private function train_owner_jp($english) {
@@ -189,11 +185,7 @@
 					return $value;
 				}
 			}
-<<<<<<< HEAD
-			return '';
-=======
 			return;
->>>>>>> 5db62243f8a33abb916c89fd2e048f3cb80d3b1f
  		}
 
  		//方向
@@ -230,5 +222,5 @@
 		private function cut_word( $string ){
 			preg_match('/.*:(.*)/', $string, $data);
 			return explode(".", $data[1]);
-		}
+		}	
 	}	
