@@ -96,7 +96,6 @@
 					$value->{'odpt:railDirection'} = self::rail_direction_jp($railway_direction);
 				}
 			}
-			print_r($data[0]->{'odpt:railwayColor'});
 			return $data;
 
 		}
