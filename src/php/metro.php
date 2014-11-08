@@ -28,8 +28,6 @@
 				}
 			}
 
-			print_r($data);		
-
 			return $data;
 		}
 
