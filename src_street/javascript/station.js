@@ -11,8 +11,7 @@ function ToastNearStation() {
                 lng: svp.getPosition().lng() },
         success: function(html){
             //console.log(html);
-            exitArray = ToArray(html);
-            console.log(exitArray);
+            exitArray = ToArray(html);            
             if(exitArray[0] === "true"){
                 //通知
                 title = '<div class="toast_title">' + exitArray[1] + " 付近です。</div>";
