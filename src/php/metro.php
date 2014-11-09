@@ -12,14 +12,14 @@
 		private $other_stationDict_json;
 
 		public function __construct() {
-                        $baseFolder = dirname(__FILE__) ."\..\json\\tokyo_metro_json";
-			$this->color_code_json = file_get_contents(dirname(__FILE__) ."\..\json\color_code\color_code.json");
+                        $baseFolder = dirname(__FILE__) ."/../json/tokyo_metro_json";
+			$this->color_code_json = file_get_contents(dirname(__FILE__) ."/../json/color_code/color_code.json");
 			$this->metro_train_ownerDict_json = file_get_contents($baseFolder ."\metro_train_ownerDict.json");
 			$this->metro_train_typeDict_json = file_get_contents($baseFolder ."\metro_train_typeDict.json");
-			$this->metro_railwayDict_json = file_get_contents($baseFolder ."\metro_railwayDict.json");
+			$this->metro_railwayDict_json = file_get_contents($baseFolder ."/metro_railwayDict.json");
 			$this->metro_rail_directionDict_json = file_get_contents($baseFolder ."\metro_rail_directionDict.json");
 			$this->metro_stationDict_json = file_get_contents($baseFolder ."\metro_stationDict.json");
-			$this->other_stationDict_json = file_get_contents($baseFolder ."\other_stationDict.json");
+			$this->other_stationDict_json = file_get_contents($baseFolder ."\other_stationDict.json");                        
 		}
 
 		//緯度,経度,半径から駅を検索
