@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
+        
+        <!--CSS Dock-->
+        <!--<link rel="stylesheet" href="../../libs/cssdock-master/dock.css" />-->
+        <link rel="stylesheet" href="../css/dock.css" />
+        
+        <!--jQuery-->
+        <script type="text/javascript" src="../../libs/jquery/jquery-2.1.1.min.js"></script>
+        
+        <script type="text/javascript" src="../javascript/welcome.js"></script>
+        <link rel="stylesheet" href="../css/welcome.css" />
+
+    </head>
+    <body>
+        <div class="wrapper">
+
+            <h1 class="welcome">ようこそ</h1>
+
+            <div class="dock" id="railway">
+                <ul>
+                    <li id="ginza">
+                        <a href="#ginza" onclick="setTimer('ginza');">
+                            <em><span>銀座線</span></em>
+                            <img src="../../img/train/mini/ginza.png" alt="ginza" />
+                        </a>
+                    </li>
+                    <li id="marunouchi">
+                        <a href="#marunouchi" onclick="setTimer('marunouchi');">
+                            <em><span>丸ノ内線</span></em>
+                            <img src="../../img/train/mini/marunouchi.png" alt="marunouchi" />
+                        </a>
+                    </li>
+                    <li id="hibiya">
+                        <a href="#hibiya" onclick="setTimer('hibiya');">
+                            <em><span>日比谷線</span></em>
+                            <img src="../../img/train/mini/hibiya.png" alt="hibiya" />
+                        </a>
+                    </li>
+                    <li id="tozai">
+                        <a href="#tozai" onclick="setTimer('tozai');">
+                            <em><span>東西線</span></em>
+                            <img src="../../img/train/mini/tozai.png" alt="tozai" />
+                        </a>
+                    </li>
+                    <li id="chiyoda">
+                        <a href="#chiyoda" onclick="setTimer('chiyoda');">
+                            <em><span>千代田線</span></em>
+                            <img src="../../img/train/mini/chiyoda.png" alt="chiyoda" />
+                        </a>
+                    </li>
+                    <li id="yurakucho">
+                        <a href="#yurakucho" onclick="setTimer('yurakucho');">
+                            <em><span>有楽町線</span></em>
+                            <img src="../../img/train/mini/yurakucho.png" alt="yurakucho" />
+                        </a>
+                    </li>
+                    <li id="hanzomon">
+                        <a href="#hanzomon" onclick="setTimer('hanzomon');">
+                            <em><span>半蔵門線</span></em>
+                            <img src="../../img/train/mini/hanzomon.png" alt="hanzomon" />
+                        </a>
+                    </li>
+                    <li id="namboku">
+                        <a href="#namboku" onclick="setTimer('namboku');">
+                            <em><span>南北線</span></em>
+                            <img src="../../img/train/mini/namboku.png" alt="namboku" />
+                        </a>
+                    </li>
+                    <li id="fukutoshin">
+                        <a href="#fukutoshin" onclick="setTimer('fukutoshin');">
+                            <em><span>副都心線</span></em>
+                            <img src="../../img/train/mini/fukutoshin.png" alt="fukutoshin" />
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <p class="message">ぶらり旅を始める路線を選択して下さい</p>
+
+        </div>
+    </body>
+</html>
