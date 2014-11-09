@@ -3,6 +3,23 @@
 	class metro {
 		private $token 	= '5dd14250f3a9800f224dff10be83fe71a4d4f8d803e340f7e4422775978a97b5';
 		private $base_url  = 'https://api.tokyometroapp.jp/api/v2/';
+		private $color_code_json;
+		private $metro_train_ownerDict_json;
+		private $metro_train_typeDict_json;
+		private $metro_railwayDict_json;
+		private $metro_rail_directionDict_json;
+		private $metro_stationDict_json;
+		private $other_stationDict_json;
+
+		public function __construct() {
+			$this->color_code_json = file_get_contents("../json/color_code/color_code.json");
+			$this->metro_train_ownerDict_json = file_get_contents("../json/tokyo_metro_json/metro_train_ownerDict.json");
+			$this->metro_train_typeDict_json = file_get_contents("../json/tokyo_metro_json/metro_train_typeDict.json");
+			$this->metro_railwayDict_json = file_get_contents("../json/tokyo_metro_json/metro_railwayDict.json");
+			$this->metro_rail_directionDict_json = file_get_contents("../json/tokyo_metro_json/metro_rail_directionDict.json");
+			$this->metro_stationDict_json = file_get_contents("../json/tokyo_metro_json/metro_stationDict.json");
+			$this->other_stationDict_json = file_get_contents("../json/tokyo_metro_json/other_stationDict.json");
+		}
 
 		//緯度,経度,半径から駅を検索
 		public function searchStation($lat, $lon, $radius) {
@@ -136,8 +153,8 @@
 
 			  //メトロ路線名に対応するカラーコードを取得する
         public function getColor($railway){
-			$json = file_get_contents("../json/color_code/color_code.json");
-			$data = json_decode($json);
+			// $json = file_get_contents("../json/color_code/color_code.json");
+			$data = json_decode($this->color_code_json);
 
 			foreach ($data as $key=>$value) {
 				if( $key === $railway ){
@@ -150,8 +167,8 @@
 
 		// 日本語の列車所有会社取得
 		private function train_owner_jp($english) {
-			$json = file_get_contents("../json/tokyo_metro_json/metro_train_ownerDict.json");
-			$data = json_decode($json);
+			// $json = file_get_contents("../json/tokyo_metro_json/metro_train_ownerDict.json");
+			$data = json_decode($this->metro_train_ownerDict_json);
 
 			foreach ($data as $key=>$value) {
 				if( $key === $english ){
@@ -163,8 +180,8 @@
 
 		// 日本の列車種別取得
 		private function train_type_jp($english) {
-			$json = file_get_contents("../json/tokyo_metro_json/metro_train_typeDict.json");
-			$data = json_decode($json);
+			// $json = file_get_contents("../json/tokyo_metro_json/metro_train_typeDict.json");
+			$data = json_decode($this->metro_train_typeDict_json);
 			foreach ($data as $key=>$value) {
 				if( $key === $english ){
 					return $value;
@@ -175,8 +192,8 @@
 
 		// 日本語の路線名取得
 		private function railway_jp($english){
-  			$json = file_get_contents("../json/tokyo_metro_json/metro_railwayDict.json");
-  			$data = json_decode($json);
+  			// $json = file_get_contents("../json/tokyo_metro_json/metro_railwayDict.json");
+  			$data = json_decode($this->metro_railwayDict_json);
 			foreach ($data as $key=>$value) {
 				if( $key === $english ){
 					return $value;
@@ -187,8 +204,8 @@
 
  		//方向
  		private function rail_direction_jp($english) {
- 			$json = file_get_contents("../json/tokyo_metro_json/metro_rail_directionDict.json");
- 			$data = json_decode($json);
+ 			// $json = file_get_contents("../json/tokyo_metro_json/metro_rail_directionDict.json");
+ 			$data = json_decode($this->metro_rail_directionDict_json);
 			foreach ($data as $key=>$value) {
 				if( $key === $english ){
 					return $value;
@@ -199,15 +216,15 @@
 
  		// 日本語の駅名取得
 		private function station_jp($english) {
-			$json = file_get_contents("../json/tokyo_metro_json/metro_stationDict.json");
-			$data = json_decode($json);
+			// $json = file_get_contents("../json/tokyo_metro_json/metro_stationDict.json");
+			$data = json_decode($this->metro_stationDict_json);
 			foreach ($data as $key=>$value) {
 				if( $key === $english ){
 					return $value;
 				}
 			}
-			$json = file_get_contents("../json/tokyo_metro_json/other_stationDict.json");
-			$data = json_decode($json);
+			// $json = file_get_contents("../json/tokyo_metro_json/other_stationDict.json");
+			$data = json_decode($this->other_stationDict_json);
 			foreach ($data as $key=>$value) {
 				if( $key === $english ){
 					return $value;
