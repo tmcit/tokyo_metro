@@ -34,7 +34,7 @@ and open the template in the editor.
                     echo '<div class="dist">およそ' .nearlyDistance($key->{"geo:lat"}, $key->{"geo:long"}).'m先</div>';
                     echo '<h2 class="title">' .$key->{"dc:title"} .'</h2>';
                     echo '<h4 class="alpha">' .toAlphabet($key->{"owl:sameAs"}) .'</h4>';
-                    foreach (getRailwayColorArray($key) as $railway => $color) {                        
+                    foreach (getRailwayColorArray($key, $metro) as $railway => $color) {                        
                         echo '<div class="railway" style="background-color:' .$color .';">' .$railway .'</div>';                        
                     }                    
                 echo '</div>';
@@ -52,43 +52,19 @@ and open the template in the editor.
         
         //路線名とテーマカラーのArrayを取得する
         //引数にstdClassをとる
-        function getRailwayColorArray($station) {
+        function getRailwayColorArray($station, $metro) {
             //odpt:railwayの路線名と、対応するカラーコードを配列に格納
             $railway = $station->{"odpt:railway"};            
             $railwayArray = array(
-                $railway => getColor($railway)
+                $railway => $metro->getColor($railway)
             );            
             //接続路線の中に含まれるメトロ路線名とカラーコードを追加
-            foreach ($station->{"odpt:connectingRailway"} as $key => $value) {
-                if(isMetro($value)){
-                    $railwayArray[$value] = getColor($value);
+            foreach ((array)$station->{"odpt:connectingRailway"} as $key => $value) {
+                if($value !== NULL){
+                    $railwayArray[$value] = $metro->getColor($value);
                 }
             }
             return $railwayArray;
-        }
-        
-        //メトロ線かどうか
-        function isMetro($railway){
-            if (strpos($railway, "odpt.Railway:TokyoMetro") === false){
-                return false;
-            }
-            return true;
-        }
-        
-        //メトロ路線名に対応するカラーコードを取得する
-        function getColor($railway){
-            $color = [
-                "Ginza" => "#FF9500",
-                "Marunouchi" => "#F62E36",
-                "Hibiya" => "#B5B5AC",
-                "Tozai"  => "#009BBF",
-                "Chiyoda" => "#00BB85",
-                "Yurakucho" => "#C1A470",
-                "Hanzomon" => "#8F76D6",
-                "Namboku" => "#00AC9B",
-                "Fukutoshin" => "#9C5E31"
-            ];   
-            return $color[toAlphabet($railway)];
         }
         ?>
         
