@@ -5,7 +5,7 @@
 
 body{  
     margin: 0;  
-    padding: 50px 0 30px 0;
+    padding: 40px 0 30px 0;
 }  
 * html body{  
     overflow: hidden;  
@@ -70,6 +70,7 @@ div#footer {
 .station .info .railway {
     text-align: center;
     color: #fff;
+    padding-top: 2px;
     font-size: 1.2em;
 }
 
