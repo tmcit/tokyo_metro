@@ -10,8 +10,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
         
         <!--CSS Dock-->
-        <!--<link rel="stylesheet" href="../../libs/cssdock-master/dock.css" />-->
-        <link rel="stylesheet" href="../css/dock.css" />
+        <link rel="stylesheet" href="../../libs/cssdock/dock.css" />
         
         <!--jQuery-->
         <script type="text/javascript" src="../../libs/jquery/jquery-2.1.1.min.js"></script>
@@ -23,10 +22,12 @@
     <body>
         <div class="wrapper">
 
-            <h1 class="welcome">ようこそ</h1>
+            <div class="welcome">
+                <h1 id="fade2">ようこそ！</h1>
+            </div>
 
             <div class="dock" id="railway">
-                <ul>
+                <ul id="fade1">
                     <li id="ginza">
                         <a href="#ginza" onclick="setTimer('ginza');">
                             <em><span>銀座線</span></em>
@@ -84,8 +85,9 @@
                 </ul>
             </div>
 
-            <p class="message">ぶらり旅を始める路線を選択して下さい</p>
-
+            <div class="message">
+                <p id="fade3">ぶらり旅を始める路線を選択して下さい</p>
+            </div>
         </div>
     </body>
 </html>

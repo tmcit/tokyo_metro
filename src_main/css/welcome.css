@@ -5,7 +5,7 @@ html {
     padding: 0;
     display: table;
 }
-body {
+body {    
     background: #f7f7f7;
     min-height: 100%;
     margin: 0 auto;
@@ -14,22 +14,35 @@ body {
     vertical-align: middle;
 }
 
+
 .wrapper {
     margin-bottom: 5%;
 }
 
+
 .welcome {
+    height: 76px;
+    padding-top:20px;
+}
+.welcome h1 {
+    margin: 0;
     text-align: center;
     color: #00b0ea;
     font-size: 3em;
 }
+
 
 #railway{
     margin-top: 100px;
     margin-bottom: 10px;
 }
 
+
 .message {
+    height: 41px;
+}
+.message p {
+    margin: 0;
     text-align: center;
     color: #8b8b8b;
     font-size: 2.1em;
