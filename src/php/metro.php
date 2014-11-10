@@ -87,10 +87,11 @@
 			$prm= array('rdf:type'=>'odpt:Station', 'odpt:railway'=>$railway_name);
 			$data = self::get_datapoints($prm);
 			$array = array();
-			foreach ($data as $value) {
-				$array +=  array($value->{'dc:title'}=>$value->{'odpt:stationCode'});
-			}	
-			arsort($array);
+			foreach ($data as $key=>$value) {
+				$array += array($value->{'dc:title'}=>array('odpt:stationcode'=>$value->{'odpt:stationCode'}, "station_eng_name"=>self::cut_word($value->{'owl:sameAs'})[2]));
+
+			}
+			arsort($array);	
 			return $array;
 		} 
 
