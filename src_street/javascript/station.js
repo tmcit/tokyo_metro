@@ -14,9 +14,11 @@ function ToastNearStation() {
             exitArray = ToArray(html);            
             if(exitArray[0] === "true"){
                 //通知
+                //console.log(exitArray);
                 title = '<div class="toast_title">' + exitArray[1] + " 付近です。</div>";
                 msg = '<div class="toast_msg">東京メトロに乗車しますか？</div>';
-                button = '<div><button type="button" class="toast_btn" onclick="RideMetro()">乗車する</button></div>';
+                button = '<div><button type="button" class="toast_btn" onclick=\'RideMetro("' 
+                        + exitArray[4] + '")\'>乗車する</button></div>';
                 toastr.options = {"timeOut": "7000", "extendedTimeOut": "1500"};
                 toastr.info(msg + button, title);
             }
@@ -28,8 +30,8 @@ function ToastNearStation() {
  * 東京メトロに乗車するボタン押下時に呼び出される
  * 地上からメトロに乗るまでの橋渡し
  */
-function RideMetro() {
-    alert("メトロに乗ります。");
+function RideMetro(sameAs) {
+    alert(sameAs);
     
     //画面ホワイトアウト後ページ遷移
     $('#wrapper').animate({"opacity": 0}, {"duration": 1000, queue: false});
@@ -60,6 +62,7 @@ function ToArray(html){
         result[1] = array[++i]; //出入口名
         result[2] = array[++i]; //緯度
         result[3] = array[++i]; //経度
+        result[4] = array[++i]; //駅名
     }
     
     return result;

@@ -12,16 +12,18 @@
     $lng = $_POST['lng'];
         
     $metro = new metro();
-    $exit = $metro->searchStationExit($lat, $lng, 20);
+    $exit = $metro->searchStationExit($lat, $lng, 20);    
     
-    var_dump($exit);
+    //var_dump($exit);
     $isExist = IsNearStation($exit);    
     
     if($isExist){
         echo "\n***:true\n";
         echo $exit[0]->{"dc:title"} ."\n";
         echo $exit[0]->{"geo:lat"} ."\n";
-        echo $exit[0]->{"geo:long"} ."\n";   
+        echo $exit[0]->{"geo:long"} ."\n";
+        $stations = $metro->searchStation($lat, $lng, 300);
+        echo matchStation($stations, $exit[0]->{"@id"});
     }
     else{
         echo "\n***:" ."false" ."\n";
@@ -31,4 +33,14 @@
 function IsNearStation($exit) {
     return count($exit) > 0;
 }
-?>
+
+//現在の出口のidに一致する付近の駅を取得する
+function matchStation($stations, $id){
+    foreach ($stations as $station) {
+        foreach ((array)$station->{"odpt:exit"} as $key => $exitId){
+            if($exitId === $id){
+                return $station->{"owl:sameAs"};
+            }
+        }
+    }
+}
