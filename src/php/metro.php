@@ -83,6 +83,17 @@
 			return $data;
 		}	
 
+		public function stations($railway_name) {
+			$prm= array('rdf:type'=>'odpt:Station', 'odpt:railway'=>$railway_name);
+			$data = self::get_datapoints($prm);
+			$array = array();
+			foreach ($data as $value) {
+				$array +=  array($value->{'dc:title'}=>$value->{'odpt:stationCode'});
+			}	
+			arsort($array);
+			return $array;
+		} 
+
 
 		public function station_timetable($odpt_Station) {
 			$prm = array('rdf:type'=>'odpt:StationTimetable', 'odpt:station'=>$odpt_Station);
@@ -115,7 +126,8 @@
 			return $data;
 
 		}
-	
+
+
 
 		private function get_datapoints($prm) {
 			$api_name = "datapoints";
