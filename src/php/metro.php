@@ -88,40 +88,54 @@
 			$data = self::get_datapoints($prm);
 			$array = array();
 			$railway_jp_name = self::railway_jp(self::cut_word($railway_name)[1]);
-			$array += array("railway_jp_name"=>$railway_jp_name);
+			// $array += array("railway_jp_name"=>$railway_jp_name);
 			if ($railway_name === 'odpt.Railway:TokyoMetro.Ginza') {
-				$array += array('color_code'=>'#FF9500');
+				foreach ($data as $key=>$value) {
+					$array += array($key=>array('color_code'=>'#FF9500','odpt:stationcode'=>$value->{'odpt:stationCode'}, "station_eng_name"=>self::cut_word($value->{'owl:sameAs'})[2] , "station_jp_name"=>$value->{'dc:title'}, "railway_jp_name"=>$railway_jp_name));
+				}
 			}
 			else if ($railway_name === 'odpt.Railway:TokyoMetro.Marunouchi') {
-				$array += array('color_code'=>'#F62E36');
+				foreach ($data as $key=>$value) {
+					$array += array($key=>array('color_code'=>'#F62E36','odpt:stationcode'=>$value->{'odpt:stationCode'}, "station_eng_name"=>self::cut_word($value->{'owl:sameAs'})[2] , "station_jp_name"=>$value->{'dc:title'}, "railway_jp_name"=>$railway_jp_name));
+				}
 			}
 			else if ($railway_name === 'odpt.Railway:TokyoMetro.Hibiya') {
-				$array += array('color_code'=>'#B5B5AC');
+				foreach ($data as $key=>$value) {
+					$array += array($key=>array('color_code'=>'#B5B5AC','odpt:stationcode'=>$value->{'odpt:stationCode'}, "station_eng_name"=>self::cut_word($value->{'owl:sameAs'})[2] , "station_jp_name"=>$value->{'dc:title'}, "railway_jp_name"=>$railway_jp_name));
+				}
 			}
 			else if ($railway_name === 'odpt.Railway:TokyoMetro.Tozai') {
-				$array += array('color_code'=>'#009BBF');
+				foreach ($data as $key=>$value) {
+					$array += array($key=>array('color_code'=>'#009BBF','odpt:stationcode'=>$value->{'odpt:stationCode'}, "station_eng_name"=>self::cut_word($value->{'owl:sameAs'})[2] , "station_jp_name"=>$value->{'dc:title'}, "railway_jp_name"=>$railway_jp_name));
+				}
 			}
 			else if ($railway_name === 'odpt.Railway:TokyoMetro.Chiyoda') {
-				$array += array('color_code'=>'#00BB85');
+				foreach ($data as $key=>$value) {
+					$array += array($key=>array('color_code'=>'#00BB85','odpt:stationcode'=>$value->{'odpt:stationCode'}, "station_eng_name"=>self::cut_word($value->{'owl:sameAs'})[2] , "station_jp_name"=>$value->{'dc:title'}, "railway_jp_name"=>$railway_jp_name));
+				}
 			}
 			else if ($railway_name ==='odpt.Railway:TokyoMetro.Yurakucho') {
-				$array += array('color_code'=>'#C1A470');
+				foreach ($data as $key=>$value) {
+					$array += array($key=>array('color_code'=>'#C1A470','odpt:stationcode'=>$value->{'odpt:stationCode'}, "station_eng_name"=>self::cut_word($value->{'owl:sameAs'})[2] , "station_jp_name"=>$value->{'dc:title'}, "railway_jp_name"=>$railway_jp_name));
+				}
 			}
 			else if ($railway_name === 'odpt.Railway:TokyoMetro.Hanzomon') {
-				$array += array('color_code'=>'#8F76D6');
+				foreach ($data as $key=>$value) {
+					$array += array($key=>array('color_code'=>'#8F76D6','odpt:stationcode'=>$value->{'odpt:stationCode'}, "station_eng_name"=>self::cut_word($value->{'owl:sameAs'})[2] , "station_jp_name"=>$value->{'dc:title'}, "railway_jp_name"=>$railway_jp_name));
+				}
 			}
 			else if ($railway_name === 'odpt.Railway:TokyoMetro.Namboku') {
-				$array += array('color_code'=>'#00AC9B');
+				foreach ($data as $key=>$value) {
+					$array += array($key=>array('color_code'=>'#00AC9B','odpt:stationcode'=>$value->{'odpt:stationCode'}, "station_eng_name"=>self::cut_word($value->{'owl:sameAs'})[2] , "station_jp_name"=>$value->{'dc:title'}, "railway_jp_name"=>$railway_jp_name));
+				}
 			}
 			else if ($railway_name === 'odpt.Railway:TokyoMetro.Fukutoshin') {
-				$array += array('color_code'=>'#9C5E31');
+				foreach ($data as $key=>$value) {
+					$array += array($key=>array('color_code'=>'#9C5E31','odpt:stationcode'=>$value->{'odpt:stationCode'}, "station_eng_name"=>self::cut_word($value->{'owl:sameAs'})[2] , "station_jp_name"=>$value->{'dc:title'}, "railway_jp_name"=>$railway_jp_name));
+				}
 			}
 
-			foreach ($data as $key=>$value) {
-				$array += array($key=>array('odpt:stationcode'=>$value->{'odpt:stationCode'}, "station_eng_name"=>self::cut_word($value->{'owl:sameAs'})[2] , "station_jp_name"=>$value->{'dc:title'}));
-				// $array += array($key=>array($value->{'dc:title'})=>array('odpt:stationcode'=>$value->{'odpt:stationCode'}, "station_eng_name"=>self::cut_word($value->{'owl:sameAs'})[2]));
-
-			}
+			
 			arsort($array);	
 			return $array;
 		} 
