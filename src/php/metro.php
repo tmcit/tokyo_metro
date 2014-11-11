@@ -87,6 +87,35 @@
 			$prm= array('rdf:type'=>'odpt:Station', 'odpt:railway'=>$railway_name);
 			$data = self::get_datapoints($prm);
 			$array = array();
+
+			if ($railway_name === 'odpt.Railway:TokyoMetro.Ginza') {
+				$array += array('color_code'=>'#FF9500');
+			}
+			else if ($railway_name === 'odpt.Railway:TokyoMetro.Marunouchi') {
+				$array += array('color_code'=>'#F62E36');
+			}
+			else if ($railway_name === 'odpt.Railway:TokyoMetro.Hibiya') {
+				$array += array('color_code'=>'#B5B5AC');
+			}
+			else if ($railway_name === 'odpt.Railway:TokyoMetro.Tozai') {
+				$array += array('color_code'=>'#009BBF');
+			}
+			else if ($railway_name === 'odpt.Railway:TokyoMetro.Chiyoda') {
+				$array += array('color_code'=>'#00BB85');
+			}
+			else if ($railway_name ==='odpt.Railway:TokyoMetro.Yurakucho') {
+				$array += array('color_code'=>'#C1A470');
+			}
+			else if ($railway_name === 'odpt.Railway:TokyoMetro.Hanzomon') {
+				$array += array('color_code'=>'#8F76D6');
+			}
+			else if ($railway_name === 'odpt.Railway:TokyoMetro.Namboku') {
+				$array += array('color_code'=>'#00AC9B');
+			}
+			else if ($railway_name === 'odpt.Railway:TokyoMetro.Fukutoshin') {
+				$array += array('color_code'=>'#9C5E31');
+			}
+
 			foreach ($data as $key=>$value) {
 				$array += array($value->{'dc:title'}=>array('odpt:stationcode'=>$value->{'odpt:stationCode'}, "station_eng_name"=>self::cut_word($value->{'owl:sameAs'})[2]));
 
