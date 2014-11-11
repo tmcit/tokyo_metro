@@ -25,37 +25,30 @@ div#header {
 div#contents  {
 	margin-top: 100px;
 	width: 100%;
-	
+
 } 
 
-
-
-.left_contetnts {
-	float:left;
-	border: 2px solid #ffffff;
-	background-color: #00BB85;
-
-	width: 500px;
-	height:500px;
-	margin-left: 200px;
-
+#li {
+	list-style-type: none;
 }
 
-.right_contents {
-	float:right;
-	border: 2px solid #ffffff;
-	background-color: #00BB85;
 
-	width: 500px;
-	height:500px;
-	margin-right: 200px;
-}
+/*.tile {*/
+	/*float:left;*/
+	/*border: 2px solid #ffffff;*/
+	/*background-color: #00BB85;*/
+
+	/*width: 500px;*/
+	/*height:200px;*/
+	/*margin-left: 200px;*/
+
+/*}*/
 
 .station_name {
 	color: #ffffff;
 	text-align: center;
 	font-size: 3.0em;
-	margin-top: 100px;
+	
 }
 
 .station_eng_name {
