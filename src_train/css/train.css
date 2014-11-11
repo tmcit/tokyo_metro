@@ -16,6 +16,10 @@ li {
     list-style-type: none;
 }
 
+ul {
+    margin: 0;
+}
+
 .contents_left {
     width: 700px;
     float: left;
@@ -34,11 +38,15 @@ li {
     z-index: 1;               
 }               
 
+.station {
+    margin-top: 40px;
+}
+
 .station li {
     clear: both;
     position: relative;
     z-index: 2;
-    padding: 40px 0;
+    //padding: 40px 0;
     margin-left: -40px;
 }
 

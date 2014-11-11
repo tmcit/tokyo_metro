@@ -8,6 +8,7 @@ function setZoom(){
     var scale = $(window).height() / HTML_HEIGHT * 100;
     $('.contents_left').css({'zoom' : scale + "%" });
 
+    //ドアの下に駅名が回り込まないように、widthを動的に設定
     var width = $('.contents_left').width() * scale / 100 + 500;
     if (($('body').width() > width) === true){
         $('.wrapper').css({'width' : "auto" });
@@ -15,4 +16,9 @@ function setZoom(){
     else {
         $('.wrapper').css({'width' : width + "px" });
     }
+    
+    //駅名の間隔の分散
+    var max_height = $('body').height() / $('li').length;
+    $('.station li div').css({'margin' : max_height/2 - 30 + "px 0"});
+    $('.station li p').css({'margin' : max_height/2 - 30 + "px 10px"});
 }
