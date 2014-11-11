@@ -19,6 +19,6 @@ function setZoom(){
     
     //駅名の間隔の分散
     var max_height = $('body').height() / $('li').length;
-    $('.station li div').css({'margin' : max_height/2 - 30 + "px 0"});
-    $('.station li p').css({'margin' : max_height/2 - 30 + "px 10px"});
+    $('.station li div').css({'margin' : max_height/2 - 40 + "px 0"});
+    $('.station li .name').css({'margin' : max_height/2 - 40 + "px 10px"});
 }

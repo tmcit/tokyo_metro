@@ -1,0 +1,58 @@
+.led {
+    color: #FFB400;
+    font-size: 32px;
+    font-weight: lighter;
+    overflow: hidden;
+    position: relative;
+    width: 290px;
+    height: 44px;
+    z-index: 300;
+    margin-top: -747px;
+    margin-left: 195px;
+}
+
+.led:after {
+    content: ' ';
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: url("./led.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background-size: 3.5px 3.5px, 3.5px 3.5px;
+    z-index: 310;
+}
+
+.led span {
+    display: inline-block;
+    white-space: nowrap;
+    padding-left: 100%;
+    -webkit-animation-name: ticker-animation;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-duration: 12s;
+    -moz-animation-name: ticker-animation;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-duration: 12s;
+    font-family: "メイリオ";
+}
+
+@-webkit-keyframes ticker-animation {
+    from {
+        -webkit-transform: translate(0%);
+    }
+    99%, to {
+        -webkit-transform: translate(-100%);
+    }
+}
+
+@-moz-keyframes ticker-animation {
+    from {
+        -moz-transform: translate(0%);
+    }
+    99%, to {
+        -moz-transform: translate(-100%);
+    }
+}
