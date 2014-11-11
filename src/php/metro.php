@@ -118,7 +118,8 @@
 			}
 
 			foreach ($data as $key=>$value) {
-				$array += array($value->{'dc:title'}=>array('odpt:stationcode'=>$value->{'odpt:stationCode'}, "station_eng_name"=>self::cut_word($value->{'owl:sameAs'})[2]));
+				$array += array($key=>array('odpt:stationcode'=>$value->{'odpt:stationCode'}, "station_eng_name"=>self::cut_word($value->{'owl:sameAs'})[2] , "station_jp_name"=>$value->{'dc:title'}));
+				// $array += array($key=>array($value->{'dc:title'})=>array('odpt:stationcode'=>$value->{'odpt:stationCode'}, "station_eng_name"=>self::cut_word($value->{'owl:sameAs'})[2]));
 
 			}
 			arsort($array);	
