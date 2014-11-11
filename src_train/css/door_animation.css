@@ -1,0 +1,42 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+
+.door_container {
+    width: 100%;
+    height: 100%;
+}
+
+.door {
+    text-align: center;
+    position: absolute;
+    /*width: 482px;*/
+    left: 103px;
+    overflow:hidden;
+}
+
+.door div {
+    position: relative;
+    overflow: hidden;
+    width: auto;    
+}
+
+.door_container .door img {
+    height: 100%;
+    overflow:hidden;
+}
+
+#left {
+    float: left;
+}
+
+#right {
+    float: right;
+}
+
+.frame {
+    z-index: 200;
+    position: relative;
+}

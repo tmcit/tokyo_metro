@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<script type="text/javascript" src="../../libs/jquery/jquery-2.1.1.min.js"></script>
+	
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
+
+        <script type="text/javascript" src="../javascript/train.js"></script>
+        <link rel="stylesheet" href="../css/door_animation.css">
+        
+        <link rel="stylesheet" href="../css/train.css">    
+        
+	<title></title>
+</head>
+<body>
+
+    <div class="wrapper">
+    
+    <div class="contents_left" style="zoom: scale;">
+    <div class="door_container" >        
+        <div class="door" >
+            <div id="left" >
+                <img  src="../../img/door/door_left_s.png"  />
+            </div>
+            <div id="right">
+                <img  src="../../img/door/door_right_s.png" />
+            </div>
+        </div>
+
+        <div class="frame">
+            <img src="../../img/door/door_frame1_s_shadow.png" />
+        </div>
+    </div>
+    </div>
+
+    <div class="contents_right">
+        <div class="line" style="background: #0094ff"></div>
+        <ul class="station">
+            <li>
+                <div class="circle"></div>
+                <p>Shinagawa-Seaside†Leggendaria</p>
+            </li>
+            <li>
+                <div class="circle"></div>
+                <p>Shinagawa-Seaside†Leggendaria</p>
+            </li>
+            <li>
+                <div class="circle"></div>
+                <p>Shinagawa-Seaside†Leggendaria</p>
+            </li>
+            <li>
+                <div class="circle"></div>
+                <p>Shinagawa-Seaside†Leggendaria</p>
+            </li>
+            <li>
+                <div class="circle"></div>
+                <p>Shinagawa-Seaside†Leggendaria</p>
+            </li>
+        </ul>
+    </div>
+    </div>
+
+    
+    
+    <script type="text/javascript">
+        //ドア画像が読み込まれたとき、ドア画像のwidthを取得
+        var width;
+        var element = $('#left img');
+        element.on('load', function () {
+            var img = new Image();
+            img.src = element.attr('src');
+            width = img.width;
+
+            //frameからスライドしたドアがはみ出さない様にするため
+            var fixdiv = document.getElementsByClassName("door");
+            fixdiv.style.width = width * 2 + "px";
+        });
+
+        jQuery(document).ready(function () {
+            jQuery('.door_container').hover(function () {
+                jQuery('.door_container').find('#left').animate({ right: width }, { queue: false, duration: 1000 });
+                jQuery('.door_container').find('#right').animate({ left: width }, { queue: false, duration: 1000 });
+                //jQuery('#door_container .door').animate({ 'opacity': 0 }, { queue: false, duration: 1000 });
+            }, function () {
+                jQuery('.door_container .door div').animate({ 'opacity': 1 }, { queue: false, duration: 1000 });
+                jQuery('.door_container .door div').css({ 'left': 'auto', 'right': 'auto' });
+            });
+        });
+    </script>
+</body>
+</html>
