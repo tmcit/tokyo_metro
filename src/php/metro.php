@@ -87,7 +87,8 @@
 			$prm= array('rdf:type'=>'odpt:Station', 'odpt:railway'=>$railway_name);
 			$data = self::get_datapoints($prm);
 			$array = array();
-
+			$railway_jp_name = self::railway_jp(self::cut_word($railway_name)[1]);
+			$array += array("railway_jp_name"=>$railway_jp_name);
 			if ($railway_name === 'odpt.Railway:TokyoMetro.Ginza') {
 				$array += array('color_code'=>'#FF9500');
 			}
