@@ -19,6 +19,12 @@ function setZoom(){
     
     //駅名の間隔の分散
     var max_height = $('body').height() / $('li').length;
-    $('.station li div').css({'margin' : max_height/2 - 40 + "px 0"});
-    $('.station li .name').css({'margin' : max_height/2 - 40 + "px 10px"});
+    $('.station li div').css({'margin' : max_height/2 -5 + "px 0 0 0"});
+    $('.station li .name').css({'margin' : max_height/2 -5 + "px 0 0 10px"});
+    if($('li').length === 1) {
+        $('.station').css({'margin-top' : "-20px"});
+    }
+    else if($('li').length < 5) {
+        $('.station').css({'margin-top' : "15px"});
+    }
 }

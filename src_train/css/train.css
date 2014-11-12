@@ -11,6 +11,7 @@ body {
     padding: 0;
     background: #fafafa;
 }
+//body {overflow-y: hidden;}
 
 li {
     list-style-type: none;
@@ -26,7 +27,7 @@ ul {
 }
 
 .contents_right {
-    width: 300px;
+    width: 330px;
     float: right;
     margin-right: 40px;
 } 
@@ -39,7 +40,7 @@ ul {
 }               
 
 .station {
-    margin-top: 35px;
+    margin-top: -10px;
 }
 
 .station li {
