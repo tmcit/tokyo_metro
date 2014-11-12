@@ -6,8 +6,13 @@
 </head>
 <body>
 	<?php
-	$input_data =$_POST["value"];
-	echo $input_data["stationcode"];
+	$stationcode =$_POST["stationcode"];
+	$start_station = $_POST["start_station"];
+	$end_station = $_POST["end_station"];
+
+	echo $stationcode;
+	echo $start_station;
+	echo $end_station;
 	?>	
 </body>
 </html>

@@ -21,7 +21,7 @@
 </head>
 
 	
-
+<body>
 	<script type="text/javascript">
 		// var railway_name = <?php echo $Railway_name; ?>;
 
@@ -130,10 +130,12 @@
 					// $stations = $metro->stations($railway_name);
 					$stations = $metro->stations("odpt.Railway:TokyoMetro.Tozai");
 					foreach ($stations as $key=>$value) {
-						
-						$array = array("stationcode"=>$value["odpt:stationcode"], "start_station"=>$start_station, "end_station"=>$value["station_jp_name"]);
+						$stationcode = $value["odpt:stationcode"];
+						$end_station = $value["station_jp_name"];
 						echo '<li id="li">';
-					 	echo '<input type="hidden" name="value" value='.$array.'>';
+					 	echo '<input type="hidden" name="stationcode" value='.$stationcode.'>';
+					 	echo '<input type="hidden" name="start_station" value='.$start_station.'>';
+					 	echo '<input type="hidden" name="end_station" value='.$end_station.'>';
 						echo '<button name="send_button" type="submit" class="btn btn-1 btn-1d">';
      					echo '<span class="text">';
      					echo '<div class="station_jp_name">',$value["station_jp_name"],'</div>';
