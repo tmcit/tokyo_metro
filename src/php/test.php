@@ -1,7 +1,13 @@
-<?php
-	
-	require 'metro.php';
-	$metro = new metro();
-	$station = $metro->stations("odpt.Railway:TokyoMetro.Hibiya");
-	print_r($station);
-	// print_r ($metro->searchStation(35.698683, 139.774219, 2000));
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<?php
+	$input_data =$_POST["value"];
+	echo $input_data["stationcode"];
+	?>	
+</body>
+</html>

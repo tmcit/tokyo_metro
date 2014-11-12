@@ -89,7 +89,7 @@
 			$array = array();
 			$railway_jp_name = self::railway_jp(self::cut_word($railway_name)[1]);
 			// $array += array("railway_jp_name"=>$railway_jp_name);
-			if ($railway_name === 'odpt.Railway:TokyoMetro.Ginza') {
+			if ($railway_name === 'odpt:Railway:TokyoMetro.Ginza') {
 				foreach ($data as $key=>$value) {
 					$array += array($key=>array('color_code'=>'#FF9500','odpt:stationcode'=>$value->{'odpt:stationCode'}, "station_eng_name"=>self::cut_word($value->{'owl:sameAs'})[2] , "station_jp_name"=>$value->{'dc:title'}, "railway_jp_name"=>$railway_jp_name));
 				}
