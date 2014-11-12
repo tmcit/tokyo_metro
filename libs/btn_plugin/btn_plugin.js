@@ -35,10 +35,10 @@ $(function() {
 
 	$(".btn-1d").enter(function() {
 		$(this).find(".back span").stop().animate(/* マウスを乗せたとき */
-			{ "width" : "0%" }, SPEED);
+			{ "width" : "0%" }, { "backgroundColor" : "#ffffff" }, SPEED);
 	},function() {
 		$(this).find(".back span").stop().animate(/* マウスが外れたとき */
-			{ "width" : "50%" }, SPEED);
+			{ "width" : "50%" },{ "backgroundColor" : "#FF9500" },  SPEED);
 	});
 
 	$(".btn-1e").enter(function() {
