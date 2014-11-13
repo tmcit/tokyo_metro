@@ -30,14 +30,12 @@ function ToastNearStation() {
  * 東京メトロに乗車するボタン押下時に呼び出される
  * 地上からメトロに乗るまでの橋渡し
  */
-function RideMetro(sameAs) {
-    alert(sameAs);
-    
+function RideMetro(station) {
     //画面ホワイトアウト後ページ遷移
-    $('#wrapper').animate({"opacity": 0}, {"duration": 1000, queue: false});
-    $('ul#navigation li a').animate({"opacity": 0}, {"duration": 1000, queue: false, 
+    $('#wrapper').animate({"opacity": 0}, {"duration": 1500, queue: false});
+    $('ul#navigation li a').animate({"opacity": 0}, {"duration": 1500, queue: false, 
         complete: function() {
-          location.href = "http://google.com";
+          location.href = "../../src/php/railway_select.php?station=" + station;
         }});
 }
 

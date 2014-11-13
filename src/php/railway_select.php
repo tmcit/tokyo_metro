@@ -22,8 +22,13 @@
 
 	
 <body>
+        <?php		
+            $start_station = htmlspecialchars($_GET['station']);
+            $railway_name = "";
+        ?>    
+    
 	<script type="text/javascript">
-		// var railway_name = <?php echo $Railway_name; ?>;
+                var railway_name = '<?php echo $railway_name; ?>';
 
 		var railway_name = 'odpt.Railway:TokyoMetro.Hibiya';
 
@@ -112,22 +117,18 @@
 
 	</script>
 
-
-	<?php
-		$railway_name = $_POST[''];
-		$start_station = $_POST[''];
-	?>
-
 	<div id="header">行き先を決めてください</div>
 
-	<form action="./test.php", method="post">
+	<form action="./test.php" method="post">
 	<div id="contents" >
 		<div id="tiles" style="position: relative">
 			<ul　id="list">
 				<?php
 					require 'metro.php';
 					$metro = new metro();
-					// $stations = $metro->stations($railway_name);
+                                        $start_station_info = $metro->station($start_station);                                        
+                                        $connecting_railway = $metro->connectingMetroRailway(reset($start_station_info));
+                                        //路線名(日本語)から路線名(sameAs)に変換する何か
 					$stations = $metro->stations("odpt.Railway:TokyoMetro.Tozai");
 					foreach ($stations as $key=>$value) {
 						$stationcode = $value["odpt:stationcode"];

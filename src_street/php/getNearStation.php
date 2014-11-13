@@ -23,7 +23,7 @@
         echo $exit[0]->{"geo:lat"} ."\n";
         echo $exit[0]->{"geo:long"} ."\n";
         $stations = $metro->searchStation($lat, $lng, 300);
-        echo matchStation($stations, $exit[0]->{"@id"});
+        echo matchStation($stations, $exit[0]->{"@id"}) ."\n";
     }
     else{
         echo "\n***:" ."false" ."\n";
@@ -39,7 +39,7 @@ function matchStation($stations, $id){
     foreach ($stations as $station) {
         foreach ((array)$station->{"odpt:exit"} as $key => $exitId){
             if($exitId === $id){
-                return $station->{"owl:sameAs"};
+                return $station->{"dc:title"};
             }
         }
     }

@@ -211,7 +211,7 @@
 		}	
 
 			  //メトロ路線名に対応するカラーコードを取得する
-        public function getColor($railway){
+                public function getColor($railway){
 			// $json = file_get_contents("../json/color_code/color_code.json");
 			$data = json_decode($this->color_code_json);
 
@@ -223,6 +223,23 @@
 			return;          	
 		}
 
+                /**
+                 * 駅odpt:Stationに接続する、東京メトロの全路線を取得します。
+                 * @param type $station 駅情報odpt:Station。
+                 * @return type 東京メトロの路線名(日本語)の配列。
+                 */
+                public function connectingMetroRailway($station) {
+                    $connectingRailway = array(
+                        $station->{"odpt:railway"}
+                    );                    
+                    foreach ((array)$station->{"odpt:connectingRailway"} as $key => $value) {
+                        if($value !== NULL){
+                            array_push($connectingRailway, $key);
+                        }
+                    }
+                    return $connectingRailway;
+                }
+                
 
 		// 日本語の列車所有会社取得
 		private function train_owner_jp($english) {
