@@ -29,10 +29,6 @@
     <?php
         require '../../src/php/metro.php';
         
-        var_dump(htmlspecialchars($_POST["start"]));
-        var_dump(htmlspecialchars($_POST["end"]));
-        var_dump(htmlspecialchars($_POST["railway"]));
-        
         //乗車駅
         if(!isset($_COOKIE["start"])){
             if (isset($_POST["start"])){

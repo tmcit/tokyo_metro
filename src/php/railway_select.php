@@ -119,7 +119,6 @@
 
 	<div id="header">行き先を決めてください</div>
 
-        <form action="../../src_train/php/train.php" method="post">
 	<div id="contents" >
 		<div id="tiles" style="position: relative">
 			<ul　id="list">
@@ -128,7 +127,7 @@
 					$metro = new metro();
                                         $start_station_info = $metro->station($start_station);
                                         $start_code = reset($start_station_info)->{"odpt:stationCode"};
-                                        $start_code = "T01"; //trainページのテスト用
+                                        $start_code = "T10"; //trainページのテスト用
                                         $connecting_railway = $metro->connectingMetroRailway(reset($start_station_info));
                                         var_dump($connecting_railway);
                                         //ここに路線名(日本語)から路線名(sameAs)に変換する何かを記述
@@ -138,6 +137,7 @@
 					foreach ($stations as $key=>$value) {
 						$end_code = $value["odpt:stationcode"];
 						echo '<li id="li">';
+                                                echo '<form action="../../src_train/php/train.php" method="post">';
 					 	echo '<input type="hidden" name="start" value="'.$start_code.'">';
 					 	echo '<input type="hidden" name="end" value="'.$end_code.'">';
                                                 echo '<input type="hidden" name="railway" value='.$railway.'>';
@@ -151,14 +151,13 @@
          				echo '<span class="right"></span>';
      					echo '</span>';
 						echo '</button>';
+                                                echo '</form>';
 						echo '</li>';	
 					}	
 				?>
 			</ul>
 		</div>
 	</div>
-	</form>
-
 	
 
 	<script type="text/javascript">
