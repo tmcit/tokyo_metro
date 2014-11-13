@@ -119,24 +119,28 @@
 
 	<div id="header">行き先を決めてください</div>
 
-	<form action="./test.php" method="post">
+        <form action="../../src_train/php/train.php" method="post">
 	<div id="contents" >
 		<div id="tiles" style="position: relative">
 			<ul　id="list">
 				<?php
 					require 'metro.php';
 					$metro = new metro();
-                                        $start_station_info = $metro->station($start_station);                                        
+                                        $start_station_info = $metro->station($start_station);
+                                        $start_code = reset($start_station_info)->{"odpt:stationCode"};
+                                        $start_code = "T01"; //trainページのテスト用
                                         $connecting_railway = $metro->connectingMetroRailway(reset($start_station_info));
-                                        //路線名(日本語)から路線名(sameAs)に変換する何か
-					$stations = $metro->stations("odpt.Railway:TokyoMetro.Tozai");
+                                        var_dump($connecting_railway);
+                                        //ここに路線名(日本語)から路線名(sameAs)に変換する何かを記述
+                                        
+                                        $railway = "odpt.Railway:TokyoMetro.Tozai";
+					$stations = $metro->stations($railway);
 					foreach ($stations as $key=>$value) {
-						$stationcode = $value["odpt:stationcode"];
-						$end_station = $value["station_jp_name"];
+						$end_code = $value["odpt:stationcode"];
 						echo '<li id="li">';
-					 	echo '<input type="hidden" name="stationcode" value='.$stationcode.'>';
-					 	echo '<input type="hidden" name="start_station" value='.$start_station.'>';
-					 	echo '<input type="hidden" name="end_station" value='.$end_station.'>';
+					 	echo '<input type="hidden" name="start" value="'.$start_code.'">';
+					 	echo '<input type="hidden" name="end" value="'.$end_code.'">';
+                                                echo '<input type="hidden" name="railway" value='.$railway.'>';
 						echo '<button name="send_button" type="submit" class="btn btn-1 btn-1d">';
      					echo '<span class="text">';
      					echo '<div class="station_jp_name">',$value["station_jp_name"],'</div>';

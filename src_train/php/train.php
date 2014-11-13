@@ -29,10 +29,14 @@
     <?php
         require '../../src/php/metro.php';
         
+        var_dump(htmlspecialchars($_POST["start"]));
+        var_dump(htmlspecialchars($_POST["end"]));
+        var_dump(htmlspecialchars($_POST["railway"]));
+        
         //乗車駅
         if(!isset($_COOKIE["start"])){
-            if (isset($_GET["start"])){
-                $start = htmlspecialchars($_GET["start"]);
+            if (isset($_POST["start"])){
+                $start = htmlspecialchars($_POST["start"]);
                 setcookie("start", $start);
             }
         }
@@ -43,8 +47,8 @@
         //降車駅
         //初回アクセス時にGETして、以後はGETの値をCookieに書き込んだものを使用
         if(!isset($_COOKIE["end"])){
-            if (isset($_GET["end"])){
-                $end = htmlspecialchars($_GET["end"]);
+            if (isset($_POST["end"])){
+                $end = htmlspecialchars($_POST["end"]);
                 setcookie("end", $end);
             }
         }
@@ -60,7 +64,9 @@
         setcookie("offset", $offset + 1);
         
         $metro = new metro();
-        $stationArray =  $metro->stations("odpt.Railway:TokyoMetro.Fukutoshin");
+        if (isset($_POST["railway"])) {
+            $stationArray =  $metro->stations(htmlspecialchars($_POST["railway"]));
+        }
         
         $railway = $stationArray[0]["railway_jp_name"];        
         $color = $stationArray[0]["color_code"];
@@ -173,6 +179,7 @@
     
     <script type="text/javascript">
         setTimeout("toast()", 1000);
+        //setTimeout("reload()", 3000);
         
         if (isArrival()){
             setTimeout("arrival()", 100);
