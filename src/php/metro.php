@@ -22,7 +22,17 @@
 			$this->other_stationDict_json = file_get_contents($baseFolder ."\other_stationDict.json");                        
 		}
 
-		//緯度,経度,半径から駅を検索
+                
+                /**
+                 * 任意のリクエストパラメータから、駅情報 odpt:Stationを提供します。
+                 * @param type $reqArray リクエストパラメータの配列。
+                 * @return type 駅情報 odpt:Station
+                 */
+                public function searchStationFromRequestArray($reqArray){
+                        return self::get_datapoints($reqArray);
+                }
+
+                //緯度,経度,半径から駅を検索
 		public function searchStation($lat, $lon, $radius) {
 			$prm= array('rdf:type'=>'odpt:Station', 'lat'=>$lat, 'lon'=>$lon, 'radius'=>$radius);
 			$data = self::get_places($prm);
@@ -49,7 +59,16 @@
 			return $data;
 		}
 
-		//緯度,経度,半径から,駅の出口を検索
+                /**
+                 * 任意のリクエストパラメータから、地物情報 ug:Poiを提供します。
+                 * @param type $reqArray リクエストパラメータの配列。
+                 * @return type 地物情報 ug:Poi。
+                 */
+                public function searchStationExitFromRequestArray($reqArray){
+                        return self::get_datapoints($reqArray);
+                }
+
+                //緯度,経度,半径から,駅の出口を検索
 		public function searchStationExit($lat, $lon, $radius) {
 			$prm= array('rdf:type'=>'ug:Poi', 'lat'=>$lat, 'lon'=>$lon, 'radius'=>$radius);
 			$data = self::get_places($prm);
