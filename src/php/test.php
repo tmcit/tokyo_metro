@@ -1,18 +1,21 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-	<meta charset="UTF-8">
-	<title>Document</title>
-</head>
-<body>
-	<?php
-	$stationcode =$_POST["stationcode"];
-	$start_station = $_POST["start_station"];
-	$end_station = $_POST["end_station"];
+<?php
+	require 'metro.php';
+	$metro = new metro();
+		// $railway_name = $_POST[''];
+		// $start_station = $_POST[''];
+		
+	$dc_title = "上野";
+	$railway_name = $metro->station($dc_title)[0]->{"odpt:railway"};
+	$connecting_railway_name = $metro->station($dc_title)[0]->{"odpt:connectingRailway"};
 
-	echo $stationcode;
-	echo $start_station;
-	echo $end_station;
-	?>	
-</body>
-</html>
+	$array = array($railway_name);
+	$array = array_merge($array, $connecting_railway_name);
+	foreach ($array as $key => $value) {
+		# code...
+		if ($value == null)
+			unset($array[$key]);
+
+	}
+	print_r($array);
+	print (count($array));
+	?>
