@@ -218,7 +218,19 @@
         }    
 
         function arrival(){
-            alert("着いた");   
+            alert("到着！");
+            
+            $('body').animate(
+            { backgroundColor: "#fff" }, {
+                "duration": 1000, queue: false
+            });
+            $('body').animate(
+            { "opacity": 0 }, {
+                "duration": 1000, queue: false,
+                complete: function () {
+                    location.href = "./toStreetview.php?stationCode=" + $('.led span').attr("id");
+                }
+            });
         }
 
         function toast(){
