@@ -48,7 +48,8 @@
                     <div id="tiles">
                         <ul>
                         <?php // タブごとにに駅を表示
-                        $stations = $metro->stations($metro->railway_eng($railway));                        
+                        $stations = $metro->stations($metro->railway_eng($railway));
+                        $start_code = matchStationCode($stations, $start_station);
                         foreach ($stations as $key => $value) {
                             $end_code = $value["odpt:stationcode"];
                         ?>
@@ -75,6 +76,21 @@
             <?php } ?>
         </div>
 
+        <?php
+                /**
+                 * 路線内の駅名配列から、任意の日本語の駅名に対応する駅コードを提供します。
+                 * @param type $stations 路線内全ての駅名の配列。
+                 * @param type $station_jp_name 日本語の駅名。
+                 * @return type 駅コード。
+                 */
+                function matchStationCode($stations, $station_jp_name) {
+                    foreach ($stations as $key => $value) {
+                        if ($value["station_jp_name"] === $station_jp_name){
+                            return $value["odpt:stationcode"];
+                        }
+                    }
+                }
+        ?>
 
 	<script>
 		setTimeout("slider()", 5);                
