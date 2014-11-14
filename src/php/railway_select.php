@@ -2,14 +2,12 @@
 <html >
 <head>
 <meta charset="UTF-8">
-    <!-- <link type="text/css" href="../css/railway_select.css" rel="stylesheet"/> -->
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../libs/liquidslider-master/css/liquid-slider.css"/>
     <link rel="stylesheet" href="../css/railway_select.css">
 
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
     <!-- Latest compiled and minified JavaScript -->
     <link rel="stylesheet" href="../../libs/jquery-accordion-image-menu-master/accordionImageMenu.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
@@ -24,28 +22,10 @@
   
 
 </head>
-
-	
 <body>
-	<?php
-		require 'metro.php';
-		$metro = new metro();
-		// $railway_name = $_POST[''];
-		// $start_station = $_POST[''];
-		
-		$dc_title = "上野";
-		$railway_name = $metro->station($dc_title)[0]->{"odpt:railway"};
-		$connecting_railway_name = $metro->station($dc_title)[0]->{"odpt:connectingRailway"};
-		$array = array($railway_name);
-		$array += array_merge($array, $connecting_railway_name);
-
-	?>
-
-
+    
 	<script type="text/javascript">
-		var railway_name = <?php echo $railway_name; ?>;
-
-		// var railway_name = 'odpt.Railway:TokyoMetro.Hibiya';
+		var railway_name = 'odpt.Railway:TokyoMetro.Hibiya';
 
 		if (railway_name == 'odpt.Railway:TokyoMetro.Ginza') {
 			var d = document;
@@ -132,25 +112,41 @@
 
 	</script>
 
-	
-	<div id="header">行き先を決めてください</div>
+	<?php
+		require 'metro.php';
+		$metro = new metro();
+		// $railway_name = $_POST[''];
+		// $start_station = $_POST[''];
+		
+		$dc_title = "上野";
+		$railway_name = $metro->station($dc_title)[0]->{"odpt:railway"};
+		$connecting_railway_name = $metro->station($dc_title)[0]->{"odpt:connectingRailway"};
+		$array = array($railway_name);
+		$array = array_merge($array, $connecting_railway_name);
+		foreach ($array as $key => $value) {
+			if ($value == null)
+				unset($array[$key]);
+		}
+	?>
 
-	<div class="liquid-slider" id="slider">
-		<div id="contents" >
-			<?php
-				foreach ($array as $key => $value) {
+	<!-- <div id="header">行き先を決めてください</div> -->
+	<?php
+		echo '<div class="liquid-slider" id="slider">';
+		// 駅の数だけタブ生成
+		foreach ($array as $key => $value) {
+					echo '<div id="contents">';
 					echo '<h2 class="title" >'.$value.'</h2>';
 					echo '<div id="tiles" style="position: relative">';
 					echo '<ul　id="list">';
-					// $stations = $metro->stations($railway_name);
-					$stations = $metro->stations("odpt.Railway:TokyoMetro.Tozai");
+					$stations = $metro->stations($metro->railway_eng($value));
+					// タブごとにに駅を表示
 					foreach ($stations as $key=>$value) {
-						$stationcode = $value["odpt:stationcode"];
-						$end_station = $value["station_jp_name"];
+						$end_code = $value["odpt:stationcode"];
 						echo '<li id="li">';
-					 	echo '<input type="hidden" name="stationcode" value='.$stationcode.'>';
-					 	echo '<input type="hidden" name="start_station" value='.$start_station.'>';
-					 	echo '<input type="hidden" name="end_station" value='.$end_station.'>';
+                        echo '<form action="../../src_train/php/train.php" method="post">';
+					 	echo '<input type="hidden" name="start" value="'.$start_code.'">';
+					 	echo '<input type="hidden" name="end" value="'.$end_code.'">';
+                        echo '<input type="hidden" name="railway" value='.$railway.'>';
 						echo '<button name="send_button" type="submit" class="btn btn-1 btn-1d">';
      					echo '<span class="text">';
      					echo '<div class="station_jp_name">',$value["station_jp_name"],'</div>';
@@ -161,20 +157,19 @@
          				echo '<span class="right"></span>';
      					echo '</span>';
 						echo '</button>';
+                        echo '</form>';
 						echo '</li>';	
 					}	
-					echo '/ul>';
-					echo '</div>';
-				}
-			?>	
-		</div>;
-	<div>;
-	
-			<!-- <form action="./test.php", method="post"> -->
-				  
-		
 
-		
+					echo '</ul>';
+					echo '</div>';
+					echo '</div>';
+
+				}
+			
+	echo '</div>';
+	?>	
+
 
 	<script>
 		$(function() {
@@ -198,9 +193,6 @@
  
 	</script>
 
-
-	
-
 	<script type="text/javascript">
   		$(document).ready(new function() {
     		var options = {
@@ -215,8 +207,5 @@
     	handler.wookmark(options); // wookmarkをオプション付きで実行
 		});
 	</script>
-
-	
-
 </body>
 </html>

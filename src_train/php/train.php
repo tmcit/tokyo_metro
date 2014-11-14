@@ -31,8 +31,8 @@
         
         //乗車駅
         if(!isset($_COOKIE["start"])){
-            if (isset($_GET["start"])){
-                $start = htmlspecialchars($_GET["start"]);
+            if (isset($_POST["start"])){
+                $start = htmlspecialchars($_POST["start"]);
                 setcookie("start", $start);
             }
         }
@@ -43,8 +43,8 @@
         //降車駅
         //初回アクセス時にGETして、以後はGETの値をCookieに書き込んだものを使用
         if(!isset($_COOKIE["end"])){
-            if (isset($_GET["end"])){
-                $end = htmlspecialchars($_GET["end"]);
+            if (isset($_POST["end"])){
+                $end = htmlspecialchars($_POST["end"]);
                 setcookie("end", $end);
             }
         }
@@ -53,14 +53,16 @@
         }
         
         //在線位置
-        $offset = startOffset($start);
+        $offset = startOffset($start, !direction($start, $end));
         if (isset($_COOKIE["offset"])){
             $offset = htmlspecialchars($_COOKIE["offset"]);
         }
         setcookie("offset", $offset + 1);
         
         $metro = new metro();
-        $stationArray =  $metro->stations("odpt.Railway:TokyoMetro.Fukutoshin");
+        if (isset($_POST["railway"])) {
+            $stationArray =  $metro->stations(htmlspecialchars($_POST["railway"]));
+        }
         
         $railway = $stationArray[0]["railway_jp_name"];        
         $color = $stationArray[0]["color_code"];
@@ -138,10 +140,42 @@
             return strnatcmp($start, $end) < 0;
         }
         
-        //startの駅のoffsetを取得
-        function startOffset($start) {
+        /**
+         * 乗車駅のoffsetを取得
+         * @param type $start 乗車駅(駅コード)
+         * @param type $reverse 方向が反転するかどうか
+         * @return type offsetの値
+         */
+        function startOffset($start, $reverse) {            
+            $startNum = intval(substr($start, 1));            
             //駅ナンバーは1から始まるので-1する
-            return intval(substr($start, 1)) - 1;
+            if($reverse === false) {
+                return $startNum - 1;
+            }
+            else {
+                return getStationLength($start) - $startNum;
+            }            
+        }
+        
+        /**
+         * 現在の駅から路線を判別し、その路線における駅コードの最大値を取得します。
+         * @param type $railwayCode 駅コード
+         * @return type 駅コードの最大値
+         */
+        function getStationLength($railwayCode) {
+            $stationLength = [
+                "G" => "19",
+                "M" => "25",
+                "m" => "03", //m03-m05
+                "H" => "21",
+                "T" => "23",
+                "C" => "20",
+                "Y" => "24",
+                "Z" => "14",
+                "N" => "19",
+                "F" => "16"
+            ];
+            return intval($stationLength[$railwayCode[0]]);
         }
     ?>
     
@@ -173,6 +207,7 @@
     
     <script type="text/javascript">
         setTimeout("toast()", 1000);
+        //setTimeout("reload()", 3000);
         
         if (isArrival()){
             setTimeout("arrival()", 100);

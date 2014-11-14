@@ -16,6 +16,7 @@
 			unset($array[$key]);
 
 	}
-	print_r($array);
-	print (count($array));
+	// print_r($array);
+	// print (count($array));
+	print $metro->railway_eng("銀座線");
 	?>

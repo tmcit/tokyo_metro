@@ -260,6 +260,15 @@
 			}
 			return;
  		}
+ 		public function railway_eng($japanese) {
+ 			$data = json_decode($this->metro_railwayDict_json);
+			foreach ($data as $key=>$value) {
+				if( $value === $japanese ){
+					return "odpt.Railway:TokyoMetro.".$key;
+				}
+			}
+			return;
+ 		}
 
  		//方向
  		private function rail_direction_jp($english) {
