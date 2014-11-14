@@ -22,95 +22,6 @@
     <link rel="stylesheet" href="../css/railway_select.css" />
 </head>
 <body>
-    
-	<script type="text/javascript">
-		//var railway_name = 'odpt.Railway:TokyoMetro.Hibiya';
-
-		if (railway_name == 'odpt.Railway:TokyoMetro.Ginza') {
-			var d = document;
-			var link = d.createElement('link');
-			link.href = '../css/ginza_style.css';
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			var h = d.getElementsByTagName('head')[0];
-			h.appendChild(link);
-		}
-		else if (railway_name == 'odpt.Railway:TokyoMetro.Marunouchi') {
-			var d = document;
-			var link = d.createElement('link');
-			link.href = '../css/marunouchi_style.css';
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			var h = d.getElementsByTagName('head')[0];
-			h.appendChild(link);
-		}
-		else if (railway_name == 'odpt.Railway:TokyoMetro.Hibiya') {
-			var d = document;
-			var link = d.createElement('link');
-			link.href = '../css/hibiya_style.css';
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			var h = d.getElementsByTagName('head')[0];
-			h.appendChild(link);
-		}
-		else if (railway_name == 'odpt.Railway:TokyoMetro.Tozai') {
-			var d = document;
-			var link = d.createElement('link');
-			link.href = '../css/tozai_style.css';
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			var h = d.getElementsByTagName('head')[0];
-			h.appendChild(link);
-		}
-		else if (railway_name == 'odpt.Railway:TokyoMetro.Chiyoda') {
-			var d = document;
-			var link = d.createElement('link');
-			link.href = '../css/chiyoda_style.css';
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			var h = d.getElementsByTagName('head')[0];
-			h.appendChild(link);
-		}
-		else if (railway_name == 'odpt.Railway:TokyoMetro.Yurakucho') {
-			var d = document;
-			var link = d.createElement('link');
-			link.href = '../css/yurakutyo_style.css';
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			var h = d.getElementsByTagName('head')[0];
-			h.appendChild(link);
-		}
-		else if (railway_name == 'odpt.Railway:TokyoMetro.Hanzomon') {
-			var d = document;
-			var link = d.createElement('link');
-			link.href = '../css/hanzomon_style.css';
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			var h = d.getElementsByTagName('head')[0];
-			h.appendChild(link);
-		}
-		else if (railway_name == 'odpt.Railway:TokyoMetro.Namboku') {
-			var d = document;
-			var link = d.createElement('link');
-			link.href = '../css/nanboku_style.css';
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			var h = d.getElementsByTagName('head')[0];
-			h.appendChild(link);
-		}
-		else if (railway_name == 'odpt.Railway:TokyoMetro.Fukutoshin') {
-			var d = document;
-			var link = d.createElement('link');
-			link.href = '../css/fukutoshin_style.css';
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			var h = d.getElementsByTagName('head')[0];
-			h.appendChild(link);
-		};
-
-
-	</script>
-
 	<?php		
                 //$start_station = htmlspecialchars($_GET['station']);
                 $start_station = "上野";       	
@@ -127,46 +38,6 @@
 	?>
 
 	<!-- <div id="header">行き先を決めてください</div> -->
-        <!--
-	<?php
-                //**********  下のHTMLをPHPメインに書くとこんな感じなver  ************
-//               
-//                
-//		echo '<div class="liquid-slider" id="slider">';
-//		// 駅の数だけタブ生成
-//		foreach ($connecting_railway as $index => $railway) {
-//                        echo '<div id="contents">';
-//                        echo '<h2 class="title" >'.$railway.'</h2>';
-//                        echo '<div id="tiles">';
-//                        echo '<ul>';
-//                        $stations = $metro->stations($metro->railway_eng($railway));
-//                        // タブごとにに駅を表示
-//                        foreach ($stations as $key => $value) {
-//                                $end_code = $value["odpt:stationcode"];
-//                                echo '<li>';
-//                                echo '<form action="../../src_train/php/train.php" method="post">';
-//                                echo '<input type="hidden" name="start" value="'.$start_code.'">';
-//                                echo '<input type="hidden" name="end" value="'.$end_code.'">';
-//                                echo '<button name="send_button" type="submit" class="btn btn-1 btn-1d">';
-//                                echo '<span class="text">';
-//                                echo '<div class="station_jp_name">',$value["station_jp_name"],'</div>';
-//                                echo '<div class="station_eng_name">',$value["station_eng_name"],'</div>';
-//                                echo '</span>';
-//                                echo '<span class="back">';
-//                                echo '<span class="left"></span>';
-//                                echo '<span class="right"></span>';
-//                                echo '</span>';
-//                                echo '</button>';
-//                                echo '</form>';
-//                                echo '</li>';	
-//                        }
-//                        echo '</ul>';
-//                        echo '</div>';
-//                        echo '</div>';
-//                }			
-//                echo '</div>';
-	?>
-        -->
         
         <div class="liquid-slider" id="slider">
             <?php // 駅の数だけタブ生成
@@ -225,25 +96,6 @@
     			mobileNavDefaultText: 'Menu',
                     });
                 } 
-	</script>
-
-        
-	<script type="text/javascript">
-  		$(document).ready(new function() {
-                    //woolmark();
-                 });
-                 
-                function wookmark(){
-                    var options = {
-      			autoResize: true, // ブラウザの拡大縮小に合わせて要素を自動でリサイズするかどうか
-      			container: $('#contents'), // CSSを適用している要素を指定
-      			offset: 40, // 要素間の隙間を指定
-      			itemWidth: 600,
-      			itemHeight:300 // 各要素の幅を指定 
-                    };
-                    var handler = $('#tiles li'); // レンガ状にする要素を指定
-                    handler.wookmark(options); // wookmarkをオプション付きで実行
-                }
 	</script>
         
         <script type="text/javascript">
