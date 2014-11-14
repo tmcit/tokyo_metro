@@ -22,6 +22,15 @@
 			$this->other_stationDict_json = file_get_contents($baseFolder ."\other_stationDict.json");                        
 		}
 
+                /**
+                 * 任意のリクエストパラメータから、駅情報 odpt:Stationを提供します。
+                 * @param type $reqArray リクエストパラメータの配列。
+                 * @return type 駅情報 odpt:Station
+                 */
+                public function searchStationFromRequestArray($reqArray){
+                        return self::get_datapoints($reqArray);
+                }                
+                
 		//緯度,経度,半径から駅を検索
 		public function searchStation($lat, $lon, $radius) {
 			$prm= array('rdf:type'=>'odpt:Station', 'lat'=>$lat, 'lon'=>$lon, 'radius'=>$radius);
@@ -48,6 +57,15 @@
 
 			return $data;
 		}
+                
+                /**
+                 * 任意のリクエストパラメータから、地物情報 ug:Poiを提供します。
+                 * @param type $reqArray リクエストパラメータの配列。
+                 * @return type 地物情報 ug:Poi。
+                 */
+                public function searchStationExitFromRequestArray($reqArray){
+                        return self::get_datapoints($reqArray);
+                }
 
 		//緯度,経度,半径から,駅の出口を検索
 		public function searchStationExit($lat, $lon, $radius) {
@@ -89,7 +107,7 @@
 			$array = array();
 			$railway_jp_name = self::railway_jp(self::cut_word($railway_name)[1]);
 			// $array += array("railway_jp_name"=>$railway_jp_name);
-			if ($railway_name === 'odpt:Railway:TokyoMetro.Ginza') {
+			if ($railway_name === 'odpt.Railway:TokyoMetro.Ginza') {
 				foreach ($data as $key=>$value) {
 					$array += array($key=>array('color_code'=>'#FF9500','odpt:stationcode'=>$value->{'odpt:stationCode'}, "station_eng_name"=>self::cut_word($value->{'owl:sameAs'})[2] , "station_jp_name"=>$value->{'dc:title'}, "railway_jp_name"=>$railway_jp_name));
 				}
@@ -210,8 +228,8 @@
 			return $temp;
 		}	
 
-			  //メトロ路線名に対応するカラーコードを取得する
-        public function getColor($railway){
+                //メトロ路線名に対応するカラーコードを取得する
+                public function getColor($railway){
 			// $json = file_get_contents("../json/color_code/color_code.json");
 			$data = json_decode($this->color_code_json);
 
@@ -222,7 +240,23 @@
 			}	
 			return;          	
 		}
-
+                
+                /**
+                 * 駅odpt:Stationに接続する、東京メトロの全路線を取得します。
+                 * @param type $station 駅情報odpt:Station。
+                 * @return type 東京メトロの路線名(日本語)の配列。
+                 */
+                public function connectingMetroRailway($station) {
+                    $connectingRailway = array(
+                        $station->{"odpt:railway"}
+                    );
+                    foreach ((array)$station->{"odpt:connectingRailway"} as $key => $value) {
+                        if($value !== NULL){
+                            array_push($connectingRailway, $value);
+                        }
+                    }
+                    return $connectingRailway;
+                }                
 
 		// 日本語の列車所有会社取得
 		private function train_owner_jp($english) {
