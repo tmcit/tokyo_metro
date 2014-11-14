@@ -112,12 +112,20 @@
 
 	</script>
 
+	<?php		
+        // $start_station = htmlspecialchars($_GET['station']);
+       	// $railway_name = "";
+    ?>    
+
 	<?php
 		require 'metro.php';
 		$metro = new metro();
-		// $railway_name = $_POST[''];
-		// $start_station = $_POST[''];
-		
+		// $start_station_info = $metro->station($start_station);
+        // $start_code = reset($start_station_info)->{"odpt:stationCode"};
+        // $start_code = "T10"; //trainページのテスト用
+        // $connecting_railway = $metro->connectingMetroRailway(reset($start_station_info));
+        // var_dump($connecting_railway);
+        //ここに路線名(日本語)から路線名(sameAs)に変換する何かを記述
 		$dc_title = "上野";
 		$railway_name = $metro->station($dc_title)[0]->{"odpt:railway"};
 		$connecting_railway_name = $metro->station($dc_title)[0]->{"odpt:connectingRailway"};
