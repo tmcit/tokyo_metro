@@ -1,9 +1,4 @@
 ﻿<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <meta charset="UTF-8">
@@ -13,9 +8,7 @@ and open the template in the editor.
         <!-- Bootstrap -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
         <!-- Optional theme -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
-        <!-- Latest compiled and minified JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">        
     </head>
     <body>
         <?php
@@ -26,6 +19,8 @@ and open the template in the editor.
             
             $metro = new metro();
             $station = $metro->searchStation($lat, $lng, 1000);
+            //重複除去
+            $station = removeDuplicate($station);
             
             echo '<div id="header">近くにある東京メトロの駅情報</div>';            
             echo '<div class="station">';
@@ -65,6 +60,25 @@ and open the template in the editor.
                 }
             }
             return $railwayArray;
+        }
+        
+        /**
+         * 重複する駅名の情報を取り除いた配列を返す。
+         * @param type $station
+         */
+        function removeDuplicate($station){
+            $included = [];            
+            
+            foreach ($station as $key => $value) {
+                if(!in_array($value->{"dc:title"}, $included)){
+                   $included[] = $value->{"dc:title"};
+                }
+                else{
+                    unset($station[$key]);
+                }
+            }
+            
+            return $station;
         }
         ?>
         
