@@ -23,8 +23,8 @@
 </head>
 <body>
 	<?php		
-                //$start_station = htmlspecialchars($_GET['station']);
-                $start_station = "上野";       	
+                $start_station = htmlspecialchars($_GET['station']);
+                //$start_station = "上野";       	
         ?>    
 
 	<?php
