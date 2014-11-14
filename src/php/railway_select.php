@@ -48,7 +48,8 @@
                     <div id="tiles">
                         <ul>
                         <?php // タブごとにに駅を表示
-                        $stations = $metro->stations($metro->railway_eng($railway));
+                        $end_railway = $metro->railway_eng($railway);
+                        $stations = $metro->stations($end_railway);
                         $start_code = matchStationCode($stations, $start_station);
                         foreach ($stations as $key => $value) {
                             $end_code = $value["odpt:stationcode"];
@@ -57,6 +58,7 @@
                                 <form action="../../src_train/php/train.php" method="post">
                                     <input type="hidden" name="start" value="<?php echo $start_code ?>">
                                     <input type="hidden" name="end" value="<?php echo $end_code ?>">
+                                    <input type="hidden" name="railway" value="<?php echo $end_railway ?>">
                                     <button name="send_button" type="submit" class="btn btn-1 btn-1d">
                                         <span class="text">
                                             <div class="station_jp_name"><?php echo $value["station_jp_name"] ?></div>
@@ -144,7 +146,6 @@
                 
                 //div#contents 配下の色変更
                 $('div #contents').each(function(){
-                    console.log(this);
                     var railway = $(this).find("h2").text(); 
                     for (var key in themeColor){
                         if (railway === key) {
