@@ -182,7 +182,7 @@
     <script type="text/javascript">
         //ドア画像が読み込まれたとき、ドア画像のwidthを取得
         var width;
-        //var element = $('#left img');
+        var element = $('#left img');
         element.on('load', function () {
             var img = new Image();
             img.src = element.attr('src');
@@ -192,21 +192,9 @@
             var fixdiv = document.getElementsByClassName("door");
             fixdiv.style.width = width * 2 + "px";
         });
-
-        jQuery(document).ready(function () {
-            jQuery('.door_container').hover(function () {
-                jQuery('.door_container').find('#left').animate({ right: width }, { queue: false, duration: 1000 });
-                jQuery('.door_container').find('#right').animate({ left: width }, { queue: false, duration: 1000 });
-                //jQuery('#door_container .door').animate({ 'opacity': 0 }, { queue: false, duration: 1000 });
-            }, function () {
-                jQuery('.door_container .door div').animate({ 'opacity': 1 }, { queue: false, duration: 1000 });
-                jQuery('.door_container .door div').css({ 'left': 'auto', 'right': 'auto' });
-            });
-        });
     </script>
     
     <script type="text/javascript">
-        setTimeout("toast()", 1000);
         //setTimeout("reload()", 3000);
         
         if (isArrival()){
@@ -215,10 +203,35 @@
             $.removeCookie("start");
             $.removeCookie("end");
             $.removeCookie("offset");
-        }    
+        }
+        else {
+            setTimeout("toast()", 1000);
+        }
 
         function arrival(){
-            alert("着いた");   
+            toastr.info("ストリートビューを開始します。", "目的の駅に到着しました。");
+            
+            setTimeout("doorOpen()", 2000);
+            setTimeout("fadeOut()", 3000);
+        }
+
+        function doorOpen(){
+            $('.door_container').find('#left').animate({ right: width }, { queue: false, duration: 1000 });
+            $('.door_container').find('#right').animate({ left: width }, { queue: false, duration: 1000 });            
+        }
+
+        function fadeOut(){
+            $('body').animate(
+            { backgroundColor: "#fff" }, {
+                "duration": 1000, queue: false
+            });
+            $('body').animate(
+            { "opacity": 0 }, {
+                "duration": 1000, queue: false,
+                complete: function () {
+                    location.href = "./toStreetview.php?stationCode=" + $('.led span').attr("id");
+                }
+            });
         }
 
         function toast(){

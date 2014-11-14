@@ -1,8 +1,15 @@
 var map, svp;
 
 function Initialize() {
-    // 緯度・経度変数
-    var latlng = new google.maps.LatLng(35.702942, 139.77175499999998);
+    $('body').fadeIn(1500);
+    
+    // 緯度・経度変数 Cookieから取得後削除
+    var latlng = new google.maps.LatLng($.cookie("streetLat"), $.cookie("streetLng"));
+    if ($.cookie("streetLat") == null){
+        latlng = new google.maps.LatLng(35.702942, 139.77175499999998);
+    }
+    $.removeCookie("streetLat", { path: "/" }); 
+    $.removeCookie("streetLng", { path: "/" });
 
     //地図の設定
     var mapOption = {
