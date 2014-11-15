@@ -16,6 +16,8 @@
         <!--cookie-->
         <script type="text/javascript" src="../../libs/jquery-cookie/jquery.cookie.js"></script>
         
+        <script type="text/javascript" src="../../libs/timer/timer.js"></script>
+        
         <!--original-->
         <script type="text/javascript" src="../javascript/train_css.js"></script>
         <link rel="stylesheet" href="../css/door_animation.css">        
@@ -132,8 +134,12 @@
                 }
             ?>
             </ul>
-        </div> 
+        </div>
         
+        <div id="timer" class="btn btn-primary">
+            <span id="pri">発車まで </span>
+            <span id="CDT"></span>        
+        </div>
     </div>   
     
     <?php
@@ -240,14 +246,28 @@
     </script>
     
     <script type="text/javascript">
-        setZoom();
-        setTimeout("reload()", 8000);
+        window.onload=function(){
+            setZoom();
+            
+            if (isArrival()){
+                $('#timer').css({"display": "none"});
+                setTimeout("arrival(true)", 100);
+            }
+            else {                
+                timer(10000);
+                setTimeout("toast()", 1000);
+            }
+        };
         
-        if (isArrival()){
-            setTimeout("arrival(true)", 100);
+        function timer(addsec){
+            var tl = new Date();
+            tl.setTime(tl.getTime() + addsec);
+            var timer = new CountdownTimer('CDT', tl,'発車します！');
+            timer.countDown();
         }
-        else {
-            setTimeout("toast()", 1000);
+        function finish(){
+            $('#pri').css({ display: "none" });
+            setTimeout("reload()", 100);
         }
 
         function arrival(isArrival){

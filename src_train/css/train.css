@@ -72,3 +72,19 @@ ul {
     margin-left: 2px;
     margin-top: -15px;
 }
+
+#timer {
+    width: 200px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 1.3em;
+    background: #F58E7E;
+    border: none;
+}
+#CDT {
+    
+}
+#CDT .min {
+    display: none;
+}
