@@ -122,7 +122,7 @@
 				}
 			}
 			else if ($railway_name === 'odpt.Railway:TokyoMetro.Marunouchi') {
-				$nakano_station;
+				$nakano_station = null;
 				foreach ($data as $key=>$value) {
 					if ($value->{"dc:title"} === "中野坂上" && $nakano_station == null) {
 						$nakano_station = $value->{"dc:title"};
@@ -152,6 +152,8 @@
 			}
 			else if ($railway_name === 'odpt.Railway:TokyoMetro.Chiyoda') {
 				foreach ($data as $key=>$value) {
+					if ($value->{'dc:title'} === "明治神宮前〈原宿〉")
+						$value->{'dc:title'} = "明治神宮前";
 					$array += array($key=>array('color_code'=>'#00BB85','odpt:stationcode'=>$value->{'odpt:stationCode'}, "station_eng_name"=>self::cut_word($value->{'owl:sameAs'})[2] , "station_jp_name"=>$value->{'dc:title'}, "railway_jp_name"=>$railway_jp_name));
 				}
 			}
@@ -162,6 +164,8 @@
 			}
 			else if ($railway_name === 'odpt.Railway:TokyoMetro.Hanzomon') {
 				foreach ($data as $key=>$value) {
+					if ($value->{'dc:title'} === "押上〈スカイツリー前〉")
+						$value->{'dc:title'} = "押上";
 					$array += array($key=>array('color_code'=>'#8F76D6','odpt:stationcode'=>$value->{'odpt:stationCode'}, "station_eng_name"=>self::cut_word($value->{'owl:sameAs'})[2] , "station_jp_name"=>$value->{'dc:title'}, "railway_jp_name"=>$railway_jp_name));
 				}
 			}
@@ -172,6 +176,8 @@
 			}
 			else if ($railway_name === 'odpt.Railway:TokyoMetro.Fukutoshin') {
 				foreach ($data as $key=>$value) {
+					if ($value->{'dc:title'} === "明治神宮前〈原宿〉")
+						$value->{'dc:title'} = "明治神宮前";
 					$array += array($key=>array('color_code'=>'#9C5E31','odpt:stationcode'=>$value->{'odpt:stationCode'}, "station_eng_name"=>self::cut_word($value->{'owl:sameAs'})[2] , "station_jp_name"=>$value->{'dc:title'}, "railway_jp_name"=>$railway_jp_name));
 				}
 			}
