@@ -105,19 +105,19 @@
                 function slider(){
                     $('#slider').liquidSlider({
                         autoHeight: true,
-    			slideEaseFunction: "easeInOutExpo",
-    			autoSlide: false,
-    			dynamicArrows: true,
-    			dynamicArrowsGraphical: true,
-    			dynamicArrowLeftText: "&#171; left",
-    			dynamicArrowRightText: "right &#187;",
-    			hideSideArrows: false,
-    			hoverArrows: true,
-    			panelTitleSelector: "h2.title",
-    			navElementTag: "div",
-    			responsive: true,
-   			 	mobileNavigation: true,
-    			mobileNavDefaultText: 'Menu',
+                        slideEaseFunction: "easeInOutExpo",
+                        autoSlide: false,
+                        dynamicArrows: true,
+    	           		dynamicArrowsGraphical: true,
+    		          	dynamicArrowLeftText: "&#171; left",
+    		          	dynamicArrowRightText: "right &#187;",
+    		          	hideSideArrows: false,
+    	           		hoverArrows: true,
+    	           		panelTitleSelector: "h2.title",
+    	           		navElementTag: "div",
+    		          	responsive: true,
+   			           	mobileNavigation: true,
+    		          	mobileNavDefaultText: 'Menu',
                     });
                 } 
 	</script>
@@ -146,6 +146,8 @@
                         if (railway === key) {
                             //背景色の変更
                             $(this).children("a").css({"background-color": themeColor[key]});
+                            $(this).children("a").css({"color": "#fff"});
+
                         }
                     }                    
                 });
