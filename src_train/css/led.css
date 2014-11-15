@@ -7,7 +7,7 @@
     width: 290px;
     height: 44px;
     z-index: 300;
-    margin-top: -747px;
+    margin-top: -748px;
     margin-left: 195px;
 }
 
@@ -25,6 +25,7 @@
 }
 
 .led span {
+    padding-top: 2px;
     display: inline-block;
     white-space: nowrap;
     padding-left: 100%;

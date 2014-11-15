@@ -66,65 +66,71 @@
         
         $railway = $stationArray[0]["railway_jp_name"];        
         $color = $stationArray[0]["color_code"];
+        
+        //方向転換
+        if(direction($start, $end)){
+            $stationArray = array_reverse($stationArray);
+        }
+        $printStation = array_reverse(array_slice($stationArray, $offset, 5));
     ?>
 
     <div class="wrapper">
         
-    <div class="contents_right">
-        <div class="line" style="background: <?php echo $color; ?>"></div>
-        <ul class="station">
-        <?php
-            //方向転換
-            if(direction($start, $end)){
-                $stationArray = array_reverse($stationArray);
-            }        
-            $printStation = array_reverse(array_slice($stationArray, $offset, 5));
-            foreach ($printStation as $key => $array) {
-                //在線駅は色を変える
-                if($array == end($printStation)){
-                    echo '<li><div class="circle" style="background: #333;"></div>';
-                    $nextStation = nextStation($printStation);
-                }
-                else {
-                    echo '<li><div class="circle"></div>';
-                }
-                    echo '<div class="name"><p id="jp">' .$array["station_jp_name"] .'</p>';
-                    echo '<p id="alpha">' .$array["station_eng_name"] .'</p></div>';
-                    echo '</li>';
-            }
-        ?>
-        </ul>
-    </div>
-    </div>    
+        <div class="contents_left" style="zoom: scale;">
+            <div class="door_container" >        
+                <div class="door" >
+                    <div id="left" >
+                        <img  src="../../img/door/door_left_s.png"  />
+                    </div>
+                    <div id="right">
+                        <img  src="../../img/door/door_right_s.png" />
+                    </div>
+                </div>
+                <div class="frame">
+                    <img src="../../img/door/door_frame1_s_shadow.png" />
+                </div>
 
-    <div class="contents_left" style="zoom: scale;">
-    <div class="door_container" >        
-        <div class="door" >
-            <div id="left" >
-                <img  src="../../img/door/door_left_s.png"  />
-            </div>
-            <div id="right">
-                <img  src="../../img/door/door_right_s.png" />
-            </div>
-        </div>
+                <div class="led">
+                <?php
+                    foreach ($printStation as $key => $array) {
+                        if($array == end($printStation)){
+                            $nextStation = nextStation($printStation);
+                        }
+                    }
+                
+                    //在線駅のナンバーをspanのidに設定
+                    $nowStation = end($printStation);            
+                    echo '<span id="' .$nowStation["odpt:stationcode"] .'">';
 
-        <div class="frame">
-            <img src="../../img/door/door_frame1_s_shadow.png" />
+                    echo "次は　" .$nextStation["station_jp_name"] ."（".$nextStation["odpt:stationcode"]."）";
+                    echo "　　Next　" .$nextStation["station_eng_name"] ."（".$nextStation["odpt:stationcode"]."）";
+                    echo '</span>';
+                ?>
+                </div>
+            </div>
         </div>
         
-        <div class="led">
-        <?php
-            //在線駅のナンバーをspanのidに設定
-            $nowStation = end($printStation);            
-            echo '<span id="' .$nowStation["odpt:stationcode"] .'">';
-            
-            echo "次は　" .$nextStation["station_jp_name"] ."（".$nextStation["odpt:stationcode"]."）";
-            echo "　　Next　" .$nextStation["station_eng_name"] ."（".$nextStation["odpt:stationcode"]."）";
-            echo '</span>';
-        ?>
-        </div>
-    </div>
-    </div>
+        <div class="contents_right">
+            <div class="line" style="background: <?php echo $color; ?>"></div>
+            <ul class="station">
+            <?php                
+                foreach ($printStation as $key => $array) {
+                    //在線駅は色を変える
+                    if($array == end($printStation)){
+                        echo '<li><div class="circle" style="background: #333;"></div>';
+                    }
+                    else {
+                        echo '<li><div class="circle"></div>';
+                    }
+                        echo '<div class="name"><p id="jp">' .$array["station_jp_name"] .'</p>';
+                        echo '<p id="alpha">' .$array["station_eng_name"] .'</p></div>';
+                        echo '</li>';
+                }
+            ?>
+            </ul>
+        </div> 
+        
+    </div>   
     
     <?php    
         //次の駅(=最後から1つ前の要素)を取得
