@@ -145,7 +145,7 @@
     <?php
         //js読み取り用
         function hiddenOutputStationInfo($metro, $array, $rideRailway) {
-            echo '<span style="display: none;">';
+            echo '<span id="hidden" style="display: none;">';
             
             //停車時のled表示内容
             echo '<span id="now">' .$array["station_jp_name"] .'</span>';
@@ -160,20 +160,8 @@
             }
             echo '</span>';
             
-            //駅周辺の大規模施設
-            $yahoo = new YahooPlaceInfo();
-            $placeInfo = $yahoo->getPlaceInfo($stationInfo->{"geo:lat"}, $stationInfo->{"geo:long"});
-            echo '<span id="building">';            
-            foreach ($yahoo->getSymbolBuilding($placeInfo) as $name){
-                echo '<p style="font-size:1.2em;">' .$name .'</p>';
-            }
-            echo '</span>';
-            //駅周辺のエリア
-            echo '<span id="area">';            
-            foreach ($yahoo->getSymbolArea($placeInfo) as $name){
-                echo '<p style="font-size:1.2em;">' .$name .'</p>';
-            }
-            echo '</span>';
+            //PHPを非同期で呼び出す時の駅名
+            echo '<span id="jp_name">' .$array["station_jp_name"] .'</span>';            
             
             echo '</span>';
         }    
@@ -241,13 +229,13 @@
 
             //frameからスライドしたドアがはみ出さない様にするため
             var fixdiv = document.getElementsByClassName("door");
-            fixdiv.style.width = width * 2 + "px";
+            //fixdiv.style.width = width * 2 + "px";
         });
     </script>
     
     <script type="text/javascript">
         window.onload=function(){
-            setZoom();
+            setZoom();            
             
             if (isArrival()){
                 $('#timer').css({"display": "none"});
@@ -255,9 +243,38 @@
             }
             else {                
                 timer(10000);
-                setTimeout("toast()", 1000);
+                setTimeout("asyncGetPlace()", 1000);                
+                setTimeout("toast()", 800);
             }
         };
+        
+        function asyncGetPlace(){
+            $.ajax({
+                type: "GET",
+                url: "./asyncyahoo.php?name=" + $('#jp_name').text(),
+                success: function(html){
+                    $("#hidden").html(html);
+                    
+                    toastr.options = {"timeOut": "5000", "positionClass": "toast-bottom-right"};
+                    building = $('#building').html();
+                    if(building){
+                        title = '<div class="toast_title">' + '駅周辺の施設' + "</div>";
+                        msg = '<div class="toast_msg">' + building + '</div>';                
+                        toastr.error(msg, title);
+                    }
+
+                    area = $('#area').html();
+                    if(area){
+                        title = '<div class="toast_title">' + '駅周辺のスポット' + "</div>";
+                        msg = '<div class="toast_msg">' + area + '</div>';                
+                        toastr.warning(msg, title);
+                    }
+                },
+                error:function(){
+                   $("#hidden").html('処理に失敗しました');
+                }
+             });
+        }
         
         function timer(addsec){
             var tl = new Date();
@@ -340,20 +357,6 @@
                 title = '<div class="toast_title">' + '乗り換え案内（東京メトロ）' + "</div>";
                 msg = '<div class="toast_msg">' + railway + '</div>';                
                 toastr.info(msg, title);
-            }
-            
-            building = $('#building').html();
-            if(building){
-                title = '<div class="toast_title">' + '駅周辺の大規模施設' + "</div>";
-                msg = '<div class="toast_msg">' + building + '</div>';                
-                toastr.error(msg, title);
-            }
-            
-            area = $('#area').html();
-            if(area){
-                title = '<div class="toast_title">' + '駅周辺のスポット' + "</div>";
-                msg = '<div class="toast_msg">' + area + '</div>';                
-                toastr.warning(msg, title);
             }
             
             title = '<div class="toast_title">' + '途中下車しますか？' + "</div>";
