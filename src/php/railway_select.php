@@ -31,26 +31,32 @@
 		require 'metro.php';		
                 $metro = new metro();
                 
-                //駅名に一致する駅情報のうち先頭の要素を取得し、駅コードと全ての接続路線を取得
+                //駅名に一致する駅情報のうち先頭の要素を取得し、全ての接続路線を取得
 		$start_station_info = reset($metro->station($start_station));
-                $start_code = $start_station_info->{"odpt:stationCode"};
                 $connecting_railway = $metro->connectingMetroRailway($start_station_info);
+                
+                //路線が既に設定されている場合は、その路線のみを取得(welcomeページ)
+                if(isset($_GET['railway'])){
+                    $connecting_railway = [htmlspecialchars($_GET['railway'])];
+                }
 	?>
 
 	<!-- <div id="header">行き先を決めてください</div> -->
         
         <div class="liquid-slider" id="slider">
-            <?php // 駅の数だけタブ生成
+            <?php // 路線の数だけタブ生成
             foreach ($connecting_railway as $index => $railway) {
             ?>
                 <div id="contents">
                     <h2 class="title" ><?php echo $railway ?></h2>
                     <div id="tiles">
                         <ul>
-                        <?php // タブごとにに駅を表示
+                        <?php
                         $end_railway = $metro->railway_eng($railway);
                         $stations = $metro->stations($end_railway);
+                        //路線に対応する乗車駅の駅コード取得
                         $start_code = matchStationCode($stations, $start_station);
+                        //タブごとにに駅を表示
                         foreach ($stations as $key => $value) {
                             $end_code = $value["odpt:stationcode"];
                         ?>
