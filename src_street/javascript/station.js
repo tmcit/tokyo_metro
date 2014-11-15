@@ -18,7 +18,7 @@ function ToastNearStation() {
                 title = '<div class="toast_title">' + exitArray[1] + " 付近です。</div>";
                 msg = '<div class="toast_msg">東京メトロに乗車しますか？</div>';
                 button = '<div><button type="button" class="toast_btn" onclick=\'RideMetro("' 
-                        + exitArray[4] + '")\'>乗車する</button></div>';
+                        + exitArray[4] + '")\'>乗車する</button></div>';                
                 toastr.options = {"timeOut": "7000", "extendedTimeOut": "1500"};
                 toastr.info(msg + button, title);
             }
