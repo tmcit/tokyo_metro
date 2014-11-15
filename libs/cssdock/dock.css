@@ -1,4 +1,4 @@
-/* --------------------------------------------
+ï»¿/* --------------------------------------------
 CSS Dock
 
 Version: 	2.0
@@ -29,7 +29,7 @@ License: 	MIT License (see LICENSE file)
 	width: 97%;
     padding-right: 17px;
 	text-align: center;
-	font: normal 14px/1 'ƒƒCƒŠƒI', Arial, sans-serif;
+	font: normal 14px/1 'ãƒ¡ã‚¤ãƒªã‚ª', Arial, sans-serif;
 }
 
 .dock ul {
@@ -110,7 +110,7 @@ License: 	MIT License (see LICENSE file)
 	-moz-border-radius: 12px;
 	-o-border-radius: 12px;
 	border-radius: 12px;
-    font: "ƒƒCƒŠƒI";
+    font: "ãƒ¡ã‚¤ãƒªã‚ª";
 }
 
 .dock li:hover em, .dock li a:focus em {
