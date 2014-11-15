@@ -21,8 +21,7 @@ ul {
 }
 
 .contents_left {
-    //width: 500px;
-    width: 680px;
+    width: 750px;
     float: left;
 }
 
@@ -50,7 +49,6 @@ ul {
     clear: both;
     position: relative;
     z-index: 2;
-    //padding: 40px 0;
     margin-left: -40px;
 }
 
@@ -63,7 +61,7 @@ ul {
 }
 .station .name {
     margin: auto 0;
-    margin-left: 10px;
+    margin-left: 20px;
     float: left;
 }
 .station #jp {

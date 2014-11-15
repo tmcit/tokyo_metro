@@ -87,7 +87,7 @@
                     </div>
                 </div>
                 <div class="frame">
-                    <img src="../../img/door/door_frame1_s_shadow.png" />
+                    <img src="../../img/door/door_frame.png" />
                 </div>
 
                 <div class="led">
@@ -100,8 +100,9 @@
                 
                     //在線駅のナンバーをspanのidに設定
                     $nowStation = end($printStation);            
+                    echo '<div id="arrival_led">' .$nowStation["station_jp_name"] .'</div>';
+                    
                     echo '<span id="' .$nowStation["odpt:stationcode"] .'">';
-
                     echo "次は　" .$nextStation["station_jp_name"] ."（".$nextStation["odpt:stationcode"]."）";
                     echo "　　Next　" .$nextStation["station_eng_name"] ."（".$nextStation["odpt:stationcode"]."）";
                     echo '</span>';
@@ -118,6 +119,7 @@
                     //在線駅は色を変える
                     if($array == end($printStation)){
                         echo '<li><div class="circle" style="background: #333;"></div>';
+                        echo '<span id="now" style="display: none;">' .$array["station_jp_name"] .'</span>';
                     }
                     else {
                         echo '<li><div class="circle"></div>';
@@ -201,6 +203,7 @@
     </script>
     
     <script type="text/javascript">
+        setZoom();
         //setTimeout("reload()", 3000);
         
         if (isArrival()){
@@ -214,17 +217,41 @@
             setTimeout("toast()", 1000);
         }
 
+
         function arrival(){
-            toastr.info("ストリートビューを開始します。", "目的の駅に到着しました。");
+            $('.led span').css({ display: "none" });
+            setTimeout("stopDisplay()", 1000);
             
-            setTimeout("doorOpen()", 2000);
-            setTimeout("fadeOut()", 3000);
+            title = '<div class="toast_title">目的の駅に到着しました！</div>';
+            msg = '<div class="toast_msg">ストリートビューを開始します。</div>';
+            toastr.options = {"timeOut": "5000", "positionClass": "toast-top-right"};
+            toastr.warning(msg, title);
+            
+            setTimeout("doorOpen()", 2500);
+            setTimeout("fadeOut()", 3600);
         }
+        
+        //駅名中央表示を有効化
+        function stopDisplay(){            
+            $('#arrival_led').css({ display: "inherit" });
+        }
+        
 
         function doorOpen(){
+            width -= 30;
+            console.log(width);
             $('.door_container').find('#left').animate({ right: width }, { queue: false, duration: 1000 });
-            $('.door_container').find('#right').animate({ left: width }, { queue: false, duration: 1000 });            
+            $('.door_container').find('#right').animate({ left: width }, { queue: false, duration: 1000,
+            complete: function () {
+                setTimeout("doorOpen2()", 100);
+            }});
+        }        
+        function doorOpen2(){
+            width += 50;
+            $('.door_container').find('#left').animate({ right: width }, { queue: false, duration: 500 });
+            $('.door_container').find('#right').animate({ left: width }, { queue: false, duration: 500 });
         }
+
 
         function fadeOut(){
             $('body').animate(

@@ -40,6 +40,12 @@
     font-family: "メイリオ";
 }
 
+.led #arrival_led {
+    display: none; 
+    text-align: center;
+    padding-top: 2px;
+}
+
 @-webkit-keyframes ticker-animation {
     from {
         -webkit-transform: translate(0%);
