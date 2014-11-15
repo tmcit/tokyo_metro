@@ -13,11 +13,11 @@
     <script src="../../libs/jquery/jquery-2.1.1.min.js" type="text/javascript"></script>
     <script src="../../libs/liquidslider-master/src/js/jquery.liquid-slider.js"></script>
     <script src="../../libs/jquery-touchSwipe/jquery.touchSwipe.min.js"></script>
-    <script src="../../libs/Wookmark/jquery.wookmark.js" type="text/javascript"></script>
-    <script src="../../libs/ImgWheel-master/jquery.ImgWheel.min.js"></script>
+    <!-- // <script src="../../libs/Wookmark/jquery.wookmark.js" type="text/javascript"></script> -->
+    <!-- // <script src="../../libs/ImgWheel-master/jquery.ImgWheel.min.js"></script> -->
     <script src="../../libs/jquery_animate_colors/jquery.animate-colors.js"></script>
     <script src="../../libs/btn_plugin/btn_plugin.js"></script>
-    <script src="../../libs/jquery-accordion-image-menu-master/jquery.accordionImageMenu.min.js"></script>
+    <!-- // <script src="../../libs/jquery-accordion-image-menu-master/jquery.accordionImageMenu.min.js"></script> -->
 
     <link rel="stylesheet" href="../css/railway_select.css" />
 </head>
@@ -41,7 +41,7 @@
                 }
 	?>
 
-	<!-- <div id="header">行き先を決めてください</div> -->
+	<div id="header">行き先を決めてください</div>
         
         <div class="liquid-slider" id="slider">
             <?php // 路線の数だけタブ生成

@@ -45,6 +45,10 @@ div#header {
   margin: 40px 60px;
 }
 
+.title {
+  color:#fff;
+}
+
 /* Button base　style */
 .btn {
   border: none;
@@ -61,7 +65,7 @@ div#header {
 .btn-1 {
   border: 3px solid #fff;
   color: #fff;
-  width: 500px;
+  width: 600px;
   height: 201px;
 }
 
