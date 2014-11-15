@@ -48,6 +48,15 @@
                 }
 	?>
 
+     <script type="text/javascript">
+        $(function() {
+            $("button").click(function() {
+                $("body").fadeOut(2000);
+            });
+        });
+    </script>
+
+
 	<div id="header">行き先を決めてください</div>
         
         <div class="liquid-slider" id="slider">
@@ -72,7 +81,7 @@
                                     <input type="hidden" name="start" value="<?php echo $start_code ?>">
                                     <input type="hidden" name="end" value="<?php echo $end_code ?>">
                                     <input type="hidden" name="railway" value="<?php echo $end_railway ?>">
-                                    <button name="send_button" type="submit" class="btn btn-1 btn-1d">
+                                    <button id="button" name="send_button" type="submit" class="btn btn-1 btn-1d" onclick="fadeOut()">
                                         <span class="text">
                                             <div class="station_jp_name"><?php echo $value["station_jp_name"] ?></div>
                                             <div class="station_eng_name"><?php echo $value["station_eng_name"] ?></div>
@@ -106,7 +115,8 @@
                     }
                 }
         ?>
-
+        
+   
 	<script>
 		setTimeout("slider()", 5);                
                 function slider(){
