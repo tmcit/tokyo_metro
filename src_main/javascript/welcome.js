@@ -1,12 +1,11 @@
-﻿function setTimer(param) {
+function setTimer(param) {
 	window.setTimeout("href(" + param + ")", 2200);
 }
 
 function href(param) {
-	railway = param.getAttribute("id");
-
-	alert("#?railway=" + railway);
-    
+	var railway = $(param, "a", "em", "span").text();
+        railway = railway.replace(/\s+/g, "");
+        
 	$('.wrapper').animate(
         { backgroundColor: "#fff" }, {
             "duration": 1000, queue: false
@@ -15,7 +14,7 @@ function href(param) {
         { "opacity": 0 }, {
             "duration": 1000, queue: false,
             complete: function () {
-                location.href = "http://google.com";
+                location.href = "../php/random_station.php?railway=" + railway;
             }
         });
 }
@@ -31,16 +30,16 @@ var i = 0;
 var int=0; 
         
 $(window).bind("load", function() { 
-    int=setInterval("doFade(i)",700); //読み込む時間を指定
+    int=setInterval("fade(i)",700);
 }); 
         
-function doFade() { 
+function fade() { 
     var list = $('#fade1 li').length; 
     if (i >= list) { 
         clearInterval(int);
         nextFade();
     } 
-    $('#fade1 li').eq(i).fadeIn(700); //フェードインの時間
+    $('#fade1 li').eq(i).fadeIn(700);
     i++; 
 }
 
@@ -53,7 +52,7 @@ function nextFade() {
 
 function finalFade() {
     $('#fade3').fadeIn(700);
-    setTimeout("flash()", 2500);
+    setTimeout("flash()", 1500);
 }
 
 function flash() {

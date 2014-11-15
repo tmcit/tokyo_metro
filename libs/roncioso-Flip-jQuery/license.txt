@@ -1,0 +1,6 @@
+Flip! by Luca Manno.
+http://lab.smashup.it/flip/
+
+LICENSE: MIT/GPL license
+http://www.gnu.org/licenses/gpl.html
+http://opensource.org/licenses/mit-license.php
