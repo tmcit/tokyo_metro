@@ -35,24 +35,31 @@
 		public function searchStation($lat, $lon, $radius) {
 			$prm= array('rdf:type'=>'odpt:Station', 'lat'=>$lat, 'lon'=>$lon, 'radius'=>$radius);
 			$data = self::get_places($prm);
-			foreach ($data as $value) {
-				//	路線
-				if ($value->{'odpt:railway'}) {
-					$railway = self::cut_word( $value->{'odpt:railway'})[1];
-					$value->{'odpt:railway'} = self::railway_jp($railway);
-				 }
 	
-				//	社名
-				if( $value->{'odpt:operator'} ){
-					$operator = self::cut_word( $value->{'odpt:operator'})[0];
-					$value->{'odpt:operator'} = self::train_owner_jp($operator);
-				}
-				// 乗り換え可能路線
-				if ($value->{'odpt:connectingRailway'}) {
-					foreach ($value->{'odpt:connectingRailway'} as $key=>$railway) {
-						$value->{'odpt:connectingRailway'}{$key} = self::railway_jp(self::cut_word($railway)[1]);	
+			foreach ($data as $key=>$value) {
+			if ($value->{"dc:title"} === "中野新橋" || $value->{"dc:title"} === "中野富士見町" || $value->{"dc:title"} === "方南町") {
+					unset($data[$key]);
+			}
+			else {
+					//	路線
+					if ($value->{'odpt:railway'}) {
+						$railway = self::cut_word( $value->{'odpt:railway'})[1];
+						$value->{'odpt:railway'} = self::railway_jp($railway);
+				 	}
+	
+					//	社名
+					if( $value->{'odpt:operator'} ){
+						$operator = self::cut_word( $value->{'odpt:operator'})[0];
+						$value->{'odpt:operator'} = self::train_owner_jp($operator);
+					}
+					// 乗り換え可能路線
+					if ($value->{'odpt:connectingRailway'}) {
+						foreach ($value->{'odpt:connectingRailway'} as $key=>$railway) {
+							$value->{'odpt:connectingRailway'}{$key} = self::railway_jp(self::cut_word($railway)[1]);	
+						}
 					}
 				}
+				
 			}
 
 			return $data;
@@ -71,7 +78,10 @@
 		public function searchStationExit($lat, $lon, $radius) {
 			$prm= array('rdf:type'=>'ug:Poi', 'lat'=>$lat, 'lon'=>$lon, 'radius'=>$radius);
 			$data = self::get_places($prm);
-		
+			foreach ($data as $key => $value) {
+				if (stristr($value->{"dc:title"}, "中野新橋") || stristr($value->{"dc:title"}, "中野富士見町") || stristr($value->{"dc:title"}, "方南町"))
+				unset($data[$key]);
+			}
 			return $data;
 		}
 
@@ -106,15 +116,28 @@
 			$data = self::get_datapoints($prm);
 			$array = array();
 			$railway_jp_name = self::railway_jp(self::cut_word($railway_name)[1]);
-			// $array += array("railway_jp_name"=>$railway_jp_name);
 			if ($railway_name === 'odpt.Railway:TokyoMetro.Ginza') {
 				foreach ($data as $key=>$value) {
 					$array += array($key=>array('color_code'=>'#FF9500','odpt:stationcode'=>$value->{'odpt:stationCode'}, "station_eng_name"=>self::cut_word($value->{'owl:sameAs'})[2] , "station_jp_name"=>$value->{'dc:title'}, "railway_jp_name"=>$railway_jp_name));
 				}
 			}
 			else if ($railway_name === 'odpt.Railway:TokyoMetro.Marunouchi') {
+				$nakano_station;
 				foreach ($data as $key=>$value) {
-					$array += array($key=>array('color_code'=>'#F62E36','odpt:stationcode'=>$value->{'odpt:stationCode'}, "station_eng_name"=>self::cut_word($value->{'owl:sameAs'})[2] , "station_jp_name"=>$value->{'dc:title'}, "railway_jp_name"=>$railway_jp_name));
+					if ($value->{"dc:title"} === "中野坂上" && $nakano_station == null) {
+						$nakano_station = $value->{"dc:title"};
+					}
+					else if ($value->{"dc:title"} === "中野坂上" && $nakano_station != null) {
+						continue;
+					}
+					if ($value->{"dc:title"} === "中野新橋" || $value->{"dc:title"} === "中野富士見町" || $value->{"dc:title"} === "方南町") {
+						continue;
+					}
+					else {
+						$array += array($key=>array('color_code'=>'#F62E36','odpt:stationcode'=>$value->{'odpt:stationCode'}, "station_eng_name"=>self::cut_word($value->{'owl:sameAs'})[2] , "station_jp_name"=>$value->{'dc:title'}, "railway_jp_name"=>$railway_jp_name));				
+					}
+				
+				
 				}
 			}
 			else if ($railway_name === 'odpt.Railway:TokyoMetro.Hibiya') {
