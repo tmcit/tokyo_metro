@@ -10,6 +10,8 @@
 body{
   margin: 0;
   padding: 60px 0 70px 0;
+  display:none
+
 }
 
 div#header {
@@ -29,7 +31,7 @@ div#header {
 }
 
 #contents {
-  margin-top: 20px;
+  margin-top: 0px;
   width: 100%;
   height: 100%;
 }

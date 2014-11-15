@@ -20,6 +20,13 @@
     <!-- // <script src="../../libs/jquery-accordion-image-menu-master/jquery.accordionImageMenu.min.js"></script> -->
 
     <link rel="stylesheet" href="../css/railway_select.css" />
+    <script>
+        $(document).ready(function() {
+            $('body').fadeIn(2000);
+        });
+
+    </script>
+    
 </head>
 <body>
 	<?php		
@@ -164,6 +171,7 @@
                     }                    
                 });
                 
+
                 //hoverは上で指定することが出来ない
                 $(".btn-1").hover(
                     function(){
