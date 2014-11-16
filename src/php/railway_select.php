@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="../css/railway_select.css" />
     <script>
         $(document).ready(function() {
-            $('body').fadeIn(2000);
+            $('body').fadeIn(1300);
         });
 
     </script>
@@ -51,7 +51,7 @@
      <script type="text/javascript">
         $(function() {
             $("button").click(function() {
-                $("body").fadeOut(2000);
+                $("body").fadeOut(200);
             });
         });
     </script>

@@ -38,14 +38,16 @@
             if (isset($_POST["start"])){
                 $start = htmlspecialchars($_POST["start"]);
                 setcookie("start", $start);
+                setcookie("first", "true");
             }
         }
         else{
-            $start = htmlspecialchars($_COOKIE["start"]);
+            $start = htmlspecialchars($_COOKIE["start"]);            
+            setcookie("first", "false", time() - 1800);
         }
         
         //降車駅
-        //初回アクセス時にGETして、以後はGETの値をCookieに書き込んだものを使用
+        //初回アクセス時にPOSTして、以後はPOSTの値をCookieに書き込んだものを使用
         if(!isset($_COOKIE["end"])){
             if (isset($_POST["end"])){
                 $end = htmlspecialchars($_POST["end"]);
@@ -218,7 +220,7 @@
         }
     ?>
     
-    <script type="text/javascript">
+    <script type="text/javascript">        
         //ドア画像が読み込まれたとき、ドア画像のwidthを取得
         var width;
         var element = $('#left img');
@@ -228,7 +230,7 @@
             width = img.width;
 
             //frameからスライドしたドアがはみ出さない様にするため
-            var fixdiv = document.getElementsByClassName("door");
+            //var fixdiv = document.getElementsByClassName("door");
             //fixdiv.style.width = width * 2 + "px";
         });
     </script>
@@ -284,10 +286,16 @@
         }
         function finish(){
             $('#pri').css({ display: "none" });
-            setTimeout("reload()", 100);
+            if (!isGetoff) {
+                setTimeout("reload()", 100);
+            }
         }
 
+        //途中下車の状態も見たい
+        var isGetoff = false;
         function arrival(isArrival){
+            isGetoff = true;
+            
             $('.led span').css({ display: "none" });
             setTimeout("stopDisplay()", 1000);
             
@@ -361,6 +369,7 @@
             
             title = '<div class="toast_title">' + '途中下車しますか？' + "</div>";
             button = '<div><button type="button" class="toast_btn" onclick=\'arrival()\'>途中下車する</button></div>';            
+            toastr.options = {"timeOut": "7000", "positionClass": "toast-bottom-right"};
             toastr.success(button, title);
         }
 

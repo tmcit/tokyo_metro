@@ -1,5 +1,10 @@
 $(document).ready(function() {
-    $('body').fadeIn(500);
+    if($.cookie("first") == "true") {
+        $('body').fadeIn(1000);
+    }
+    else {
+        $('body').css({"display": "block"});
+    }
 });
 
 
