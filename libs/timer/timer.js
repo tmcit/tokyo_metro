@@ -1,11 +1,3 @@
-/**
- * http://plusblog.jp/3719/
- * @param {type} elm
- * @param {type} tl
- * @param {type} mes
- * @returns {CountdownTimer}
- */
-
 function CountdownTimer(elm,tl,mes){
     this.initialize.apply(this,arguments);
 }
