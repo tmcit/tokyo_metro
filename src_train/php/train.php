@@ -16,32 +16,38 @@
         <!--cookie-->
         <script type="text/javascript" src="../../libs/jquery-cookie/jquery.cookie.js"></script>
         
+        <script type="text/javascript" src="../../libs/timer/timer.js"></script>
+        
         <!--original-->
-        <script type="text/javascript" src="../javascript/train.js"></script>
+        <script type="text/javascript" src="../javascript/train_css.js"></script>
         <link rel="stylesheet" href="../css/door_animation.css">        
         <link rel="stylesheet" href="../css/train.css">    
         <link rel="stylesheet" href="../css/led.css">    
+        <link rel="stylesheet" href="../css/train_toast.css">    
         
-	<title></title>
+	<title>東京メトロ de ぶらり旅</title>
 </head>
 <body>
     
     <?php
         require '../../src/php/metro.php';
+        require '../../src_street/php/YahooPlaceInfo.php';
         
         //乗車駅
         if(!isset($_COOKIE["start"])){
             if (isset($_POST["start"])){
                 $start = htmlspecialchars($_POST["start"]);
                 setcookie("start", $start);
+                setcookie("first", "true");
             }
         }
         else{
-            $start = htmlspecialchars($_COOKIE["start"]);
+            $start = htmlspecialchars($_COOKIE["start"]);            
+            setcookie("first", "false", time() - 1800);
         }
         
         //降車駅
-        //初回アクセス時にGETして、以後はGETの値をCookieに書き込んだものを使用
+        //初回アクセス時にPOSTして、以後はPOSTの値をCookieに書き込んだものを使用
         if(!isset($_COOKIE["end"])){
             if (isset($_POST["end"])){
                 $end = htmlspecialchars($_POST["end"]);
@@ -64,7 +70,7 @@
             $stationArray =  $metro->stations(htmlspecialchars($_POST["railway"]));
         }
         
-        $railway = $stationArray[0]["railway_jp_name"];        
+        $railway = $stationArray[0]["railway_jp_name"];
         $color = $stationArray[0]["color_code"];
         
         //方向転換
@@ -119,7 +125,7 @@
                     //在線駅は色を変える
                     if($array == end($printStation)){
                         echo '<li><div class="circle" style="background: #333;"></div>';
-                        echo '<span id="now" style="display: none;">' .$array["station_jp_name"] .'</span>';
+                        hiddenOutputStationInfo($metro, $array, $railway);
                     }
                     else {
                         echo '<li><div class="circle"></div>';
@@ -130,11 +136,38 @@
                 }
             ?>
             </ul>
-        </div> 
+        </div>
         
+        <div id="timer" class="btn btn-primary">
+            <span id="pri">発車まで </span>
+            <span id="CDT"></span>        
+        </div>
     </div>   
     
-    <?php    
+    <?php
+        //js読み取り用
+        function hiddenOutputStationInfo($metro, $array, $rideRailway) {
+            echo '<span id="hidden" style="display: none;">';
+            
+            //停車時のled表示内容
+            echo '<span id="now">' .$array["station_jp_name"] .'</span>';
+            
+            //駅に接続する東京メトロの路線
+            echo '<span id="conect_railway">';
+            $stationInfo = reset($metro->station($array["station_jp_name"]));
+            $connectingRailway = $metro->connectingMetroRailway($stationInfo);
+            foreach ($connectingRailway as $index => $railway) {
+                if ($railway === $rideRailway) { continue; }
+                echo '<p style="font-size:1.2em;">' .$railway ."</p>";
+            }
+            echo '</span>';
+            
+            //PHPを非同期で呼び出す時の駅名
+            echo '<span id="jp_name">' .$array["station_jp_name"] .'</span>';            
+            
+            echo '</span>';
+        }    
+    
         //次の駅(=最後から1つ前の要素)を取得
         function nextStation($printStation) {
             if(count($printStation) > 1){
@@ -187,7 +220,7 @@
         }
     ?>
     
-    <script type="text/javascript">
+    <script type="text/javascript">        
         //ドア画像が読み込まれたとき、ドア画像のwidthを取得
         var width;
         var element = $('#left img');
@@ -197,33 +230,84 @@
             width = img.width;
 
             //frameからスライドしたドアがはみ出さない様にするため
-            var fixdiv = document.getElementsByClassName("door");
-            fixdiv.style.width = width * 2 + "px";
+            //var fixdiv = document.getElementsByClassName("door");
+            //fixdiv.style.width = width * 2 + "px";
         });
     </script>
     
     <script type="text/javascript">
-        setZoom();
-        //setTimeout("reload()", 3000);
+        window.onload=function(){
+            setZoom();            
+            
+            if (isArrival()){
+                $('#timer').css({"display": "none"});
+                setTimeout("arrival(true)", 100);
+            }
+            else {                
+                timer(10000);
+                setTimeout("asyncGetPlace()", 1000);                
+                setTimeout("toast()", 800);
+            }
+        };
         
-        if (isArrival()){
-            setTimeout("arrival()", 100);
+        function asyncGetPlace(){
+            $.ajax({
+                type: "GET",
+                url: "./asyncyahoo.php?name=" + $('#jp_name').text(),
+                success: function(html){
+                    $("#hidden").html(html);
+                    
+                    toastr.options = {"timeOut": "5000", "positionClass": "toast-bottom-right"};
+                    building = $('#building').html();
+                    if(building){
+                        title = '<div class="toast_title">' + '駅周辺の施設' + "</div>";
+                        msg = '<div class="toast_msg">' + building + '</div>';                
+                        toastr.error(msg, title);
+                    }
 
-            $.removeCookie("start");
-            $.removeCookie("end");
-            $.removeCookie("offset");
+                    area = $('#area').html();
+                    if(area){
+                        title = '<div class="toast_title">' + '駅周辺のスポット' + "</div>";
+                        msg = '<div class="toast_msg">' + area + '</div>';                
+                        toastr.warning(msg, title);
+                    }
+                },
+                error:function(){
+                   $("#hidden").html('処理に失敗しました');
+                }
+             });
         }
-        else {
-            setTimeout("toast()", 1000);
+        
+        function timer(addsec){
+            var tl = new Date();
+            tl.setTime(tl.getTime() + addsec);
+            var timer = new CountdownTimer('CDT', tl,'発車します！');
+            timer.countDown();
+        }
+        function finish(){
+            $('#pri').css({ display: "none" });
+            if (!isGetoff) {
+                setTimeout("reload()", 100);
+            }
         }
 
-
-        function arrival(){
+        //途中下車の状態も見たい
+        var isGetoff = false;
+        function arrival(isArrival){
+            isGetoff = true;
+            
             $('.led span').css({ display: "none" });
             setTimeout("stopDisplay()", 1000);
             
-            title = '<div class="toast_title">目的の駅に到着しました！</div>';
-            msg = '<div class="toast_msg">ストリートビューを開始します。</div>';
+            clearCookie();
+            
+            if (isArrival) {
+                title = '<div class="toast_title">目的の駅に到着しました！</div>';
+            }
+            else {
+                title = '<div class="toast_title">途中下車します！</div>';
+            }
+            msg = '<div class="toast_msg">徒歩でのぶらり旅を開始します。</div>';
             toastr.options = {"timeOut": "5000", "positionClass": "toast-top-right"};
             toastr.warning(msg, title);
             
@@ -234,6 +318,12 @@
         //駅名中央表示を有効化
         function stopDisplay(){            
             $('#arrival_led').css({ display: "inherit" });
+        }
+        
+        function clearCookie(){
+            $.removeCookie("start");
+            $.removeCookie("end");
+            $.removeCookie("offset");
         }
         
 
@@ -268,10 +358,19 @@
         }
 
         function toast(){
-            title = '<div class="toast_title">' + '通知テスト' + "</div>";
-            msg = '<div class="toast_msg">接続路線表示したり<br>飛び降りボタン設置したりする</div>';
-            toastr.options = {"timeOut": "5000", "positionClass": "toast-top-center"};
-            toastr.info(msg, title);
+            toastr.options = {"timeOut": "5000", "positionClass": "toast-bottom-right"};
+            
+            railway = $('#conect_railway').html();
+            if (railway) {
+                title = '<div class="toast_title">' + '乗り換え案内（東京メトロ）' + "</div>";
+                msg = '<div class="toast_msg">' + railway + '</div>';                
+                toastr.info(msg, title);
+            }
+            
+            title = '<div class="toast_title">' + '途中下車しますか？' + "</div>";
+            button = '<div><button type="button" class="toast_btn" onclick=\'arrival()\'>途中下車する</button></div>';            
+            toastr.options = {"timeOut": "7000", "positionClass": "toast-bottom-right"};
+            toastr.success(button, title);
         }
 
         //目的の駅に到着したかどうか
@@ -281,7 +380,9 @@
         }
                 
         function reload() {
-            location.reload();
+            if (!isArrival()) {
+                location.reload();
+            }
         }
     </script>
 </body>

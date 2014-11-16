@@ -2,7 +2,7 @@
 <html >
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>東京メトロ de ぶらり旅</title>
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../libs/liquidslider-master/css/liquid-slider.css"/>
@@ -15,7 +15,7 @@
     <script src="../../libs/btn_plugin/btn_plugin.js"></script>
     <script>
         $(document).ready(function() {
-            $('body').fadeIn(2000);
+            $('body').fadeIn(1300);
         });
 
     </script>
@@ -44,7 +44,7 @@
      <script type="text/javascript">
         $(function() {
             $("button").click(function() {
-                $("body").fadeOut(2000);
+                $("body").fadeOut(200);
             });
         });
     </script>

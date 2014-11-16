@@ -4,9 +4,12 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
-    background: #fafafa;
+    background: #fafafa;    
 }
-//body {overflow-y: hidden;}
+
+body {
+    display: none;
+}
 
 li {
     list-style-type: none;
@@ -72,4 +75,20 @@ ul {
     font-size: 20px;
     margin-left: 2px;
     margin-top: -15px;
+}
+
+#timer {
+    width: 200px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 1.3em;
+    background: #F58E7E;
+    border: none;
+}
+#CDT {
+    
+}
+#CDT .min {
+    display: none;
 }

@@ -7,7 +7,7 @@ and open the template in the editor.
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        <title>東京メトロ de ぶらり旅</title>
         <link type="text/css" href="../css/place.css" rel="stylesheet" />
         
         <!-- Bootstrap -->
