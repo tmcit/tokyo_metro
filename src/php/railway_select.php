@@ -6,20 +6,13 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../libs/liquidslider-master/css/liquid-slider.css"/>
+    <link rel="stylesheet" href="../css/railway_select.css" />
     
-    <!-- Optional theme -->
-    <!-- Latest compiled and minified JavaScript -->
-    <link rel="stylesheet" href="../../libs/jquery-accordion-image-menu-master/accordionImageMenu.css" />
     <script src="../../libs/jquery/jquery-2.1.1.min.js" type="text/javascript"></script>
     <script src="../../libs/liquidslider-master/src/js/jquery.liquid-slider.js"></script>
     <script src="../../libs/jquery-touchSwipe/jquery.touchSwipe.min.js"></script>
-    <!-- // <script src="../../libs/Wookmark/jquery.wookmark.js" type="text/javascript"></script> -->
-    <!-- // <script src="../../libs/ImgWheel-master/jquery.ImgWheel.min.js"></script> -->
     <script src="../../libs/jquery_animate_colors/jquery.animate-colors.js"></script>
     <script src="../../libs/btn_plugin/btn_plugin.js"></script>
-    <!-- // <script src="../../libs/jquery-accordion-image-menu-master/jquery.accordionImageMenu.min.js"></script> -->
-
-    <link rel="stylesheet" href="../css/railway_select.css" />
     <script>
         $(document).ready(function() {
             $('body').fadeIn(2000);
@@ -30,22 +23,22 @@
 </head>
 <body>
 	<?php		
-                $start_station = htmlspecialchars($_GET['station']);
-                //$start_station = "上野";       	
-        ?>    
+         $start_station = htmlspecialchars($_GET['station']);
+        //$start_station = "上野";       	
+    ?>    
 
 	<?php
 		require 'metro.php';		
-                $metro = new metro();
+        $metro = new metro();
                 
-                //駅名に一致する駅情報のうち先頭の要素を取得し、全ての接続路線を取得
+        //駅名に一致する駅情報のうち先頭の要素を取得し、全ての接続路線を取得
 		$start_station_info = reset($metro->station($start_station));
-                $connecting_railway = $metro->connectingMetroRailway($start_station_info);
+        $connecting_railway = $metro->connectingMetroRailway($start_station_info);
                 
-                //路線が既に設定されている場合は、その路線のみを取得(welcomeページ)
-                if(isset($_GET['railway'])){
-                    $connecting_railway = [htmlspecialchars($_GET['railway'])];
-                }
+        //路線が既に設定されている場合は、その路線のみを取得(welcomeページ)
+        if(isset($_GET['railway'])){
+            $connecting_railway = [htmlspecialchars($_GET['railway'])];
+        }
 	?>
 
      <script type="text/javascript">
