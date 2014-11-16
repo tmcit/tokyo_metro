@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        <title>東京メトロ de ぶらり旅</title>
         
         <!--jQuery-->
         <script type="text/javascript" src="../../libs/jquery/jquery-2.1.1.min.js"></script>

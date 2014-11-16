@@ -25,7 +25,7 @@
         <link rel="stylesheet" href="../css/led.css">    
         <link rel="stylesheet" href="../css/train_toast.css">    
         
-	<title></title>
+	<title>東京メトロ de ぶらり旅</title>
 </head>
 <body>
     
